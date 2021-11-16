@@ -448,6 +448,7 @@ The **requests** package isn't a built-in package that comes with python, you ha
 
 <details><summary>Without a Python virtual environment</summary>
 <p>
+
 1. Install the requests library to a new package directory.
 
 ```bash
@@ -469,6 +470,7 @@ zip  -r my-deployment-package.zip .
 
 <details><summary>With a Python virtual environment</summary>
 <p>
+
 1. Create a virtual environment in your function folder.
 
 ```bash
