@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Lab Description
+Resources:
+  ##Network Resources
+  vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/21
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Lab-vpc
+  pubSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      MapPublicIpOnLaunch: True
+      AvailabilityZone: !Select
+        - 0
+        - Fn::GetAZs: !Ref 'AWS::Region'
+      VpcId: !Ref vpc
+      CidrBlock: 10.0.0.0/24
+      Tags:
+        - Key: Name
+          Value: Lab-Pub-a
+  igw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Lab-igw
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref vpc
+      InternetGatewayId: !Ref igw
+  pubRt:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref vpc
+      Tags:
+        - Key: Name
+          Value:  Lab-public-RT
+  pubRtAssocA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref pubSubnetA
+      RouteTableId: !Ref pubRt
+  igwRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref pubRt
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref igw
+  
+  Cloud9:
+    Type: 'AWS::Cloud9::EnvironmentEC2'
+    DependsOn: pubRtAssocA
+    Properties:
+      ImageId: resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2-x86_64
+      InstanceType: t2.micro
+      SubnetId: !Ref pubSubnetA
+
+  LambdaExRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: PutMetricPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - 'cloudwatch:PutMetricData'
+                Resource: '*'    
