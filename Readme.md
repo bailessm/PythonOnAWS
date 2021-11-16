@@ -16,35 +16,35 @@ The disadvantages are that the sandbox labs only last for 12 hours, so you may n
 
 1. Choose the latest blueprint version.
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Create lab</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create lab**</span>
 
 1. Choose the **Lab Region**, these instructions should work in any region, but have been thoroughly in **us-west-2**.
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Session UI</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Session UI**</span>
 
-1. Choose <span style="background-color:#34A853; font-weight:bold; font-size:.7em; color:white; border-radius:2px; padding-left:20px; padding-right:20px; padding-top:5px; padding-bottom:5px;white-space: nowrap;">Start lab</span>
+1. Choose <span style="background-color:#34A853; font-weight:bold; font-size:.7em; color:white; border-radius:2px; padding-left:20px; padding-right:20px; padding-top:5px; padding-bottom:5px;white-space: nowrap;">**Start lab**</span>
 
-1. Choose <span style="background-color:#000; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px; white-space: nowrap;">Open Console <i class="fas fa-external-link-alt"></i></span>
+1. Choose <span style="background-color:#000; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px; white-space: nowrap;">**Open Console** <i class="fas fa-external-link-alt"></i></span>
 
 ### Task 1.2: Launch the base VPC and IAM role stack in AWS CloudFormation
 
 1. On the navigation bar, in the unified search bar, search for and choose `CloudFormation`
 
-1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Create stack <i class="fas fa-caret-down"></i></span>
+1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create stack** <i class="fas fa-caret-down"></i></span>
 
 1. Choose **With new resources (standard)**.
 
 1. For Amazon S3 URL enter `https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/pythonForAWSSupplimental/template.yml`
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Next</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Next**</span>
 
 1. Enter a stack name such as `python-lab`
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Next</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Next**</span>
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Next</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Next**</span>
 
-1. Check the box for **I acknowledge that AWS CloudFormation might create IAM resources.**, and choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Next</span>
+1. Check the box for **I acknowledge that AWS CloudFormation might create IAM resources.**, and choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Next**</span>
 
 This stack will take about 3 minutes to launch. It creates a VPC with a public subnet, a role that you will use for your lambda functions, and an AWS Cloud9 environment.
 
@@ -121,7 +121,7 @@ To create a Lambda function with the console
 
 1. On the navigation bar, in the unified search bar, search for and choose `Lambda`
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Create Function</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create Function**</span>
 
 1. Under Basic information, do the following:
 
@@ -129,7 +129,7 @@ To create a Lambda function with the console
 
 - For Runtime, choose **Python 3.9**
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Create Function</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create Function**</span>
 
 Lambda creates a Python function and an execution role that grants the function permission to upload logs. The Lambda function assumes the execution role when you invoke your function, and uses the execution role to create credentials for the AWS SDK and to read data from event sources.
 
@@ -145,19 +145,19 @@ The script, imports the built-in json dependency and has one function, the lambd
     print(event, context.get_remaining_time_in_millis())
 ```
 
-1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Deploy</span>
+1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Deploy**</span>
 
 If you change your code in the editor window, you have to deploy it before it becomes available for the next invocation. The code you added, will print the event object and get the number of milliseconds that the lambda function can run before it times out from the context object.
 
 ### Task 2.5: Test your lambda function
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Test</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Test**</span>
 
 1. For **Event-name**, enter `test_event`
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Create</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create**</span>
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Test</span> again.
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Test**</span> again.
 
 In this task you first created a test event. You left the default event in since anything will work for this function, but you can modify that test event if your lambda function expects a valid event to be passed.
 
@@ -167,13 +167,13 @@ For small lambda functions using the console to create them will work but this i
 
 ### Task 2.6: Clean up this lambda function
 
-1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Actions <i class="fas fa-caret-down"></i></span>
+1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Actions** <i class="fas fa-caret-down"></i></span>
 
 1. Choose **Delete function**.
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Delete</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Delete**</span>
 
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Delete</span>
+1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Delete**</span>
 
 ## Task 4: Deployment with a zip package
 
@@ -400,7 +400,7 @@ The **AWS: Explorer** is built into AWS Cloud9. This tool lets you browse and in
 }
 ```
 
-1. Choose <span style="ssb_grey;white-space: nowrap;">Invoke</span>
+1. Choose <span style="ssb_grey;white-space: nowrap;">**Invoke**</span>
 
 The results of your lambda invocation will be displayed in an **AWS Lambda** tab where the terminal window is.
 **Expected Output**
@@ -548,7 +548,7 @@ aws lambda create-function \
 
 1. Right click (Context click) on the web-request-function and choose **Invoke on AWS**.
 
-1. This function doesn't require an event so you can just choose <span style="ssb_grey;white-space: nowrap;">Invoke</span>
+1. This function doesn't require an event so you can just choose <span style="ssb_grey;white-space: nowrap;">**Invoke**</span>
 
 The Expected output will show a lot of information. The entire web page returned is written to the log and returned from the function. Update the code and Lambda function to only return and log the status code to just confirm a successful response.
 
@@ -576,7 +576,7 @@ zip -g my-deployment-package.zip web-request-function.py
 
 1. Choose **ZIP Archive**, expand **my-web-request-function**, select **my-deployment-package.zip**, choose <span style="ssb_green;white-space: nowrap;">Open</span>
 
-1. Choose <span style="ssb_blue;white-space: nowrap;">Yes</span>
+1. Choose <span style="ssb_blue;white-space: nowrap;">**Yes**</span>
 
 <i class="fas fa-sticky-note fa-lg" style="color:orange"></i> **Note:** In the background, **AWS: Explorer** runs the **aws lambda update-function-code** method.
 
@@ -584,7 +584,7 @@ Test the function again to see the results of your change.
 
 1. Right click (Context click) on the web-request-function and choose **Invoke on AWS**.
 
-1. This function doesn't require an event so you can just choose <span style="ssb_grey;white-space: nowrap;">Invoke</span>
+1. This function doesn't require an event so you can just choose <span style="ssb_grey;white-space: nowrap;">**Invoke**</span>
 
 **Expected Output**
 
@@ -762,7 +762,7 @@ This command will take the artifacts that it bundled with the **sam build** comm
 
 1. Right click (Context click) on the function name that starts with **sam-app-webRequestFunction** and choose **Invoke on AWS**.
 
-1. This function doesn't require an event so you can just choose <span style="ssb_grey;white-space: nowrap;">Invoke</span>
+1. This function doesn't require an event so you can just choose <span style="ssb_grey;white-space: nowrap;">**Invoke**</span>
 
 You will see the familiar output in the **AWS Lambda** window.
 
@@ -838,7 +838,7 @@ Use the AWS Explorer to view and test your API.
 
 1. For **Select a resource**, select **/webRequestFunction**.
 
-1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">Invoke</span>
+1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Invoke**</span>
 
 You will see the log output from the gateway and an OK status returned.
 
@@ -997,4 +997,3 @@ Tips
 - You can add multiple AWS SAM policy templates to the same function.
 - You can choose your own JSON structure, but remember that you will have to specify the partition key when you create the table and every record will have to include that attribute.
 - The S3 event will only give you the bucket name and object key, you will then have to read the object to process the data.
-
