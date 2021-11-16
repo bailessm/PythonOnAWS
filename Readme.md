@@ -1,5 +1,8 @@
 # Running Python on AWS
+<svg fill="none" xmlns="http://www.w3.org/2000/svg">
 
+<foreignObject width="100%" height="100%">
+<div>
 <style>
     .green_button {
         background-color:#34A853; font-weight:bold; font-size:.7em; color:white; border-radius:2px; padding-left:20px; padding-right:20px; padding-top:5px; padding-bottom:5px;white-space: nowrap;
@@ -1012,3 +1015,6 @@ Tips
 - You can add multiple AWS SAM policy templates to the same function.
 - You can choose your own JSON structure, but remember that you will have to specify the partition key when you create the table and every record will have to include that attribute.
 - The S3 event will only give you the bucket name and object key, you will then have to read the object to process the data.
+</div>
+</foreignObject>
+</svg>
