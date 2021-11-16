@@ -444,7 +444,7 @@ if __name__ == "__main__":
 
 The **requests** package isn't a built-in package that comes with python, you have to install it with pip. The cleanest way to support multiple projects on the same machine is to use a virtual environment, but that isn't required. The following steps show you how to create a lambda deployment package without and with a virtual environment. You can practice both methods but only one is required to create the package.
 
-#### Option 1: Without a virtual environment
+<details><summary>**Option 1: Without a virtual environment**</summary>
 
 1. Install the requests library to a new package directory.
 
@@ -459,7 +459,9 @@ cd my-web-request-function
 zip  -r my-deployment-package.zip .
 ```
 
-#### Option 2: With a virtual environment
+</details>
+
+<details><summary>**Option 2: With a virtual environment**</summary>
 
 1. Create a virtual environment in your function folder.
 
@@ -496,6 +498,8 @@ zip -r ../../../../my-deployment-package.zip .
 cd ~/environment/my-web-request-function
 zip -g my-deployment-package.zip web-request-function.py
 ```
+
+</details>
 
 #### Deploy the Lambda function to AWS
 
