@@ -28,7 +28,7 @@ The disadvantages are that the sandbox labs only last for 12 hours, so you may n
 
 ### Task 1.2: Launch the base VPC and IAM role stack in AWS CloudFormation
 
-1. On the navigation bar, in the unified search bar, search for and choose `CloudFormation`
+8. On the navigation bar, in the unified search bar, search for and choose `CloudFormation`
 
 1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create stack** <i class="fas fa-caret-down"></i></span>
 
@@ -446,7 +446,7 @@ The **requests** package isn't a built-in package that comes with python, you ha
 
 **Option 1:**
 
-<details><summary>Without a virtual environment</summary>
+<details><summary>Without a Python virtual environment</summary>
 <p>
 1. Install the requests library to a new package directory.
 
@@ -467,7 +467,7 @@ zip  -r my-deployment-package.zip .
 
 **Option 2:**
 
-<details><summary>With a virtual environment</summary>
+<details><summary>With a Python virtual environment</summary>
 <p>
 1. Create a virtual environment in your function folder.
 
