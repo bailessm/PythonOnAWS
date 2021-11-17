@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Running Python on AWS</title>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/themes/prism-coy.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body>
+    <header style="background-image: url(assets/bluegreenbackground.png);" class="container-fluid jumbotron">
+        <h1>Running Python on AWS</h1>
+    </header>
+    <div class="container">
+        <div class="row">
+            <!-- Lab Tasks -->
+            <div class="col-sm-12 col-lg-10">
+                <!-- Learning Objectives -->
+                <section>
+                    <h2>Learning Objectives</h2>
+                    <ul>
+                        <li>Learn the basic Python syntax</li>
+                        <li>Learn how to use Python to interact with AWS services</li>
+                        <li>Learn how to run your Python scripts on AWS without servers</li>
+                        <li>Learn how to invoke you Python scripts with different event types</li>
+                    </ul>
+                </section>
+                <!-- Introduction -->
+                <section>
+                    <h2 id="introduction">Introduction</h2>
+                    <p>
+                        This workshop teaches you how to use Python with AWS services.
+                        It will then teach you how to host your Python scripts on AWS so that they
+                        can be invoked by common event patterns.
+                    </p>
+                    <p>
+                        There are two parts to this series. Part 1 is learning the Python syntax and service
+                        integrations
+                        using the <strong>Learn Python on AWS Workshop</strong>. This is completed in Task 2 and can take around 8
+                        hours to complete.
+                        This doesn't have to be completed all at once.
+                    </p>
+                    <p>
+                        After you are comfortable with the basics of Python and how you use it with AWS services, you
+                        return and pick up at Task 3.
+                    </p>
+                    <p>
+                        Starting with Task 3 you will learn how to use AWS Lambda to run Python code on AWS. You will
+                        use both the AWS console and
+                        cli to create deploy and invoke lambda functions.
+                    </p>
+                    <p>
+                        Once your comfortable with Lambda you will learn how to use AWS SAM for deploying your Lambda
+                        functions
+                        and use other services to invoke the Lambda functions with different event types.
+                    </p>
+                    <p>
+                        You will finally be given a challenge to develop your own application. The proposed application
+                        will use Amazon S3, Lambda, and DynamoDB, but at this point you should be equipped to develop
+                        anything using Python to tie AWS services together.
+                    </p>
+                </section>
+                <!-- Task 1 -->
+                <section>
+                    <h2 id="task1">Task 1: Workshop Preparation</h2>
+                    <p>
+                        This lab was written with a common IDE in mind, AWS Cloud9. You can use any IDE that you want,
+                        but you may have to install tools such as Python and AWS SAM CLI to complete the instructions.
+                    </p>
+                    <p>
+                        If you want to use Cloud9, this task will walk you through launching an AWS CloudFormation
+                        template
+                        that creates the network, Cloud9 environment, and IAM roles that will be used.
+                    </p>
+                    <ol>
+                        <li>On the navigation bar, in the unified search bar, search for and choose <code
+                            class="language-block">CloudFormation</code>
+                        </li>
+                        <li>
+                            Choose <span class="button white_button">Create stack <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                        </li>
+                        <li>
+                            Choose <strong>With new resources (standard)</strong>
+                        </li>
+                        <li>
+                            For Amazon S3 URL enter <code class="language-block">https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/pythonForAWSSupplimental/template.yml</code>
+                        </li>
+                        <li>
+                            Choose <span class="button orange_button">Next</span>
+                        </li>
+                        <li>Enter a stack name such as <code class="language-block">python-lab</code></li>
+
+                        <li>Choose <span class="button orange_button">Next</span></li>
+
+                        <li>Choose <span class="button orange_button">Next</span></li>
+
+                        <li>Check the box for <strong>I acknowledge that AWS CloudFormation might create IAM resources.</strong>, and choose <span class="button orange_button">Next</span></li>
+
+                    </ol>
+                    <p>
+                        This stack will take about 3 minutes to launch. It creates a VPC with a public subnet, a role that you will use for your lambda functions, and an AWS Cloud9 environment.
+                    </p>
+                </section>
+                <!-- Task 2 -->
+                <section>
+                    <h2 id="task2">Task 2: Complete the Learn Python on AWS Workshop</h2>
+                    <p>
+                        The <strong>Learn Python on AWS Workshop</strong> will teach you the basics of the python programming language using Amazon Web Services (AWS).
+                    </p><p>
+                        It is aimed at beginners who have never programmed in python and it uses similar methods of explaining the basics as other books and tutorials on the python programming language.
+                    </p><p>
+                        It differs in that all the examples aim to get you started building on AWS rather than learning how to build a game, website, manipulate or visualize data.
+                    </p><p>
+                        <a href="https://learn-to-code.workshop.aws/" target="_blank">https://learn-to-code.workshop.aws/</a>
+                    </p><p>
+                        Using the Cloud9 Environment you created in Task 1, complete steps 2.2 through 13 of this workshop.
+                    </p><p>
+                        Don't worry if you have to break up the workshop over multiple days. Each section in the workshop stands on it's on and you are not required to use the same environment to complete each step. If your sandbox environment expires you can repeat task 1 of these instructions and then pick up where you left off.
+                    </p>
+                </section>
+                <!-- Task 3 -->
+                <section>
+                    <h2 id="task3">Task 3: Run your scripts on AWS without servers</h2>
+                    <p>
+                        You have learned the basics of the python language and how to interact with AWS services. These skills are important to manipulate and use cloud services.  But what if you didn't want to run the scripts from your workstation or on-demand?  The usefulness of these applications are increased exponentially when you can run them from a web address, on a schedule, or in response to an event.
+                    </p><p>
+                        To do this, you need a computational service to run your python scripts in response to these types of interactions. That service is AWS Lambda.
+                    </p>
+                    <h3>Task 3.1: The Lambda handler function</h3>
+                    <p>
+                        The Lambda function handler is the method in your function code that processes events. When your function is invoked, Lambda runs the handler method. When the handler exits or returns a response, it becomes available to handle another event.
+                    </p>
+                    <p>
+                        You can use the following general syntax when creating a function handler in Python:
+                    </p>
+                    <pre>
+                    <code class="language-python">
+def handler_name(event, context):
+    ...
+    return some_value
+                    </code></pre>
+                    <p>
+                        The handler function provides the same functionality in Lambda that your main function did in the Python workshop. It allows you to control the flow of your script.
+                    </p>
+                    <p>
+                        You do not have to call the function from your code. Lambda does that when the Lambda function is invoked.
+                    </p>
+                    <p>
+                        You can leave the conditional check for <strong>__main__</strong> in your code since lambda doesn't run under that namespace. If you want to be able to run the same script from lambda and your cli, you can still use code like the code below.
+                    </p>
+                    <pre>
+                    <code class="language-python">
+def lambda_handler(event, context):
+    # TODO implement
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Hello from Lambda!')
+    }
+
+if __name__=="__main__":
+    event = {}
+    lambda_handler(event, None)
+                    </code></pre>
+                <p>
+                    The event object would be statically set as a test event or you can use the argument parser to run your code from the cli.
+                </p>
+                <p>
+                    What are the two arguments added to the lambda_handler function?
+                </p>
+
+                <h3>Task 3.2: The event and the context required arguments</h3>
+                <p>
+                    When Lambda invokes your function handler, the Lambda runtime passes two arguments to the function handler:
+                </p>
+                <ul>
+                    <li>
+                        <p>The first argument is the <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event" target="_blank">event object</a>. An event is a JSON-formatted document that contains data for a Lambda function to process. The Lambda runtime converts the event to an object and passes it to your function code. It is usually of the Python dict type. It can also be list, str, int, float, or the NoneType type.
+                        </p><p>
+                            The event object contains information from the invoking service. When you invoke a function, you determine the structure and contents of the event. When an AWS service invokes your function, the service defines the event structure. For more information about events from AWS services, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-services.html" target="_blank">Using AWS Lambda with other services</a>.
+                        </p>
+                    </li>
+                    <li>
+                        The second argument is the context object. A <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-context.html" target="_blank">context object</a> is passed to your function by Lambda at runtime. This object provides methods and properties that provide information about the invocation, function, and runtime environment.
+                    </li>
+                </ul>
+
+                <h3>Task 3.3: Create a simple lambda function in the console</h3>
+                <p>
+                    You create a Node.js Lambda function using the Lambda console. Lambda automatically creates default 
+                    code for the function.
+                </p>
+                <p>
+                    To create a Lambda function with the console
+                </p>
+                <ol>
+                    <li>On the navigation bar, in the unified search bar, search for and choose <code class="language-block">Lambda</code></li>
+                    <li>Choose <span class="button orange_button">Create Function</span></li>
+                    <li>Under Basic information, do the following:
+                        <ul>
+                            <li>For Function name, enter <code class="language-block">test-function</code></li>
+                            <li>For Runtime, choose <strong>Python 3.9</strong></li>
+                        </ul>
+                    </li>
+                    <li>Choose <span class="button orange_button">Create Function</span></li>
+                </ol>
+                <p>
+                    Lambda creates a Python function and an execution role that grants the function permission to upload logs. 
+                    The Lambda function assumes the execution role when you invoke your function, and uses the execution role 
+                    to create credentials for the AWS SDK and to read data from event sources.
+                </p>
+
+                <h3>Task 3.4: Edit the function code</h3>
+                <p>
+                    The Lambda function created has the code stored in the lambda_function.py file. You can see the contents of 
+                    this file in the Code Source section of the page.
+                </p>
+                <p>
+                    The script, imports the built-in json dependency and has one function, the lambda_handler. This initial code, 
+                    will just return an object with a success status code and string in the body.
+                </p>
+                <ol>
+                    <li>Replace <strong># TODO implement</strong> with the following code.
+                        <pre>
+                            <code class="language-python">
+    print(event, context.get_remaining_time_in_millis())
+                            </code>
+                        </pre>
+                    </li>
+                    <li>Choose <span class="button white_button">Deploy</span></li>
+                </ol>
+                <p>
+                    If you change your code in the editor window, you have to deploy it before it becomes available for the next 
+                    invocation. The code you added, will print the event object and get the number of milliseconds that the lambda 
+                    function can run before it times out from the context object.
+                </p>
+
+                <h3>Task 3.5 Test your Lambda function</h3>
+                <ol>
+                    <li>Choose <span class="button orange_button">Test</span></li>
+                    <li>For <strong>Event-name</strong>, enter <code class="language-block">test_event</code></li>
+                    <li>Choose <span class="button orange_button">Create</span></li>
+                    <li>Choose <span class="button orange_button">Test</span></li>
+                </ol>
+                <p>In this task you first created a test event. You left the default event in since anything will work for this 
+                    function, but you can modify that test event if your lambda function expects a valid event to be passed.</p>
+                <p>
+                    The Execution results tab opened when you tested the function with this new test event. You can see the 
+                    Response was returned and the full log output from the lambda function. The second line of the log shows 
+                    your event and an integer which is the number of milliseconds left that the lambda function can run.
+                </p>
+                <p>
+                    For small lambda functions using the console to create them will work but this isn't the most efficient method 
+                    that you can use when developing lambda functions.
+                </p>
+
+                <h3>Task 3.6: Clean up this lambda function</h3>
+                <ol>
+                    <li>Choose <span class="button white_button">Actions <i class="fa fa-caret-down" aria-hidden="true"></i></span></li>
+                    <li>Choose <strong>Delete function</strong></li>
+                    <li>Choose <span class="button orange_button">Delete</span></li>
+                    <li>Choose <span class="button orange_button">Delete</span></li>
+                </ol>
+
+                </section>
+                <!-- Task 4 -->
+                <section>
+                    <h2 id="task4">Task 4: Run your scripts on AWS without servers</h2>
+                    <p>
+                        For the remaining steps, it will be assumed that you're using Cloud9 as your IDE.  You are not limited to doing 
+                        this in Cloud9 but the instructions will not match if you use another editor.
+                    </p>
+                    <h3>Task 4.1: Deploying a Lambda function without dependencies</h3>
+                    <p>
+                        A lot of the python lambda functions your create will not need any additional dependencies. As you saw in the 
+                        workshop, the only dependencies that you needed to install was boto3. That package is already included in the 
+                        runtime for Python when you invoke a lambda function you just have to import it like any other built-in package.
+                    </p>
+                    <ol>
+                        <li>
+                            In the AWS Cloud9 console, create a new folder in the environment window name 
+                            <code class="language-block">my-math-function</code>. You can also run the following code in the terminal window.
+                        <pre>
+                            <code class="language-bash">
+mkdir my-math-function
+                            </code>
+                        </pre>                        
+                        </li>
+                        <li>
+                            Create a new file in the <strong>my-math-function</strong> folder named <code class="language-block">math-function.py</code>
+                        </li>
+                        <li>
+                            Copy the following code to the <strong>math-function.py</strong> file.
+                            <pre>
+                                <code class="language-python">
+import argparse
+
+parser = argparse.ArgumentParser(description="Performs an arithmetic operation on two numbers.")
+
+parser.add_argument(
+    '--operand1',
+    dest="operand1",
+    type=int,
+    help="The first number to use in your function.",
+    required=False
+    )
+
+parser.add_argument(
+    '--operand2',
+    dest="operand2",
+    type=int,
+    help="The second number to use in your function.",
+    required=False
+    )
+
+parser.add_argument(
+    '--operation',
+    type=str,
+    help="add, subtract, multiply, divide, or modulus. The operation to perform on the numbers.",
+    required=False
+    )
+
+args = parser.parse_args()
+
+def main(**kwargs):
+    operand1 = kwargs["operand1"]
+    operand2 = kwargs["operand2"]
+    operation = kwargs["operation"]
+
+    if operation == 'add':
+        return operand1 + operand2
+    elif operation == 'subtract':
+        return operand1 - operand2
+    elif operation == 'multiply':
+        return operand1 * operand2
+    elif operation == 'divide':
+        return operand1 / operand2
+    elif operation == 'modulus':
+        return operand1 % operand2
+    else:
+        return 'unsupported operation'
+
+if __name__=="__main__":
+    print(main(**vars(args)))
+                                </code>
+                            </pre>
+                        </li>
+                        <li>
+                            Save the file and run it in the terminal with the following code:
+                            <pre>
+                                <code class="language-bash">
+cd my-math-function
+python math-function.py --operand1 2 --operand2 3 --operation add
+                                </code>
+                            </pre>
+                            <p>
+                                <strong>Expected Output</strong>
+                            </p><p>
+                                <span style="font-family:Courier">5</span>
+                            </p>
+                        </li>
+                    </ol>
+                    <p>
+                        To modify this code to run in lambda, you will need to change the input of the main function 
+                        to accept an event and context object.  You will also need to change the 3 variables in the 
+                        main function to get their values from the event instead of kwargs.
+                    </p><p>
+                        You can also make this code function from lambda or the command line. To do that you 
+                        will also need to move the arg parsing logic to only run if the namespace is <strong>__main__</strong> and 
+                        to pass the correct objects to the event.  The new code should match the following code block.
+                    </p>
+                    <pre>
+                        <code class="language-python">
+import argparse
+
+def main(event, context):
+    operand1 = event["operand1"]
+    operand2 = event["operand2"]
+    operation = event["operation"]
+
+    if operation == 'add':
+        return operand1 + operand2
+    elif operation == 'subtract':
+        return operand1 - operand2
+    elif operation == 'multiply':
+        return operand1 * operand2
+    elif operation == 'divide':
+        return operand1 / operand2
+    elif operation == 'modulus':
+        return operand1 % operand2
+    else:
+        return 'unsupported operation'
+
+if __name__=="__main__":
+    parser = argparse.ArgumentParser(description="Performs an arithmetic operation on two numbers.")
+
+    parser.add_argument(
+        '--operand1',
+        dest="operand1",
+        type=int,
+        help="The first number to use in your function.",
+        required=False
+        )
+
+    parser.add_argument(
+        '--operand2',
+        dest="operand2",
+        type=int,
+        help="The second number to use in your function.",
+        required=False
+        )
+
+    parser.add_argument(
+        '--operation',
+        type=str,
+        help="add, subtract, multiply, divide, or modulus. The operation to perform on the numbers.",
+        required=False
+        )
+
+    args = parser.parse_args()
+    args = vars(args)
+    event = {
+        "operand1": args["operand1"],
+        "operand2": args["operand2"],
+        "operation": args["operation"]
+    }
+    print(main(event, None))
+                        </code></pre>
+                    <ol>
+                        <li>Save and run the code in your terminal to confirm it still works
+                            <pre>
+                                <code class="language-bash">
+python math-function.py --operand1 2 --operand2 3 --operation add
+                                </code>
+                            </pre>
+                            <p>
+                                <strong>Expected Output</strong>
+                            </p><p>
+                                <span style="font-family:Courier">5</span>
+                            </p>
+                            <i class="fa fa-info-circle" aria-hidden="true" style="color:blue"></i> **Important:** If you only care that it works in lambda, you can remove everything from <strong>if __name__=="__main__":</strong> to the end of the file.
+                        </li>
+                        <li>Add the math-function.py file to the root of a .zip file.
+                            <pre>
+                                <code class="language-bash">
+zip my-math-function.zip math-function.py
+                                </code>
+                            </pre>
+                            <p>
+                                <strong>Expected Output</strong>
+                            </p><p>
+                                <span style="font-family:Courier">adding: math-function.py (deflated 68%)</span>
+                            </p>
+                        </li>
+                        <li>Run the following command to create a variable with the IAM Role arn for your function. This role was created when you launched the Cloudformation that accompanies this workshop.
+                            <pre>
+                                <code class="language-bash">
+roleArn=$(aws iam list-roles --output text --query 'Roles[?contains(RoleName, `LambdaExRole`) == `true`].Arn')
+                                </code>
+                            </pre>
+                        </li>
+                        <li>Use the following command in your terminal to create the lambda function.
+                            <pre>
+                                <code class="language-bash">
+aws lambda create-function \
+--function-name math-function  \
+--handler math-function.main \
+--runtime python3.9 \
+--role $roleArn \
+--zip-file fileb://my-math-function.zip
+                                </code>
+                            </pre>
+                        
+                        <p>
+                            <strong>Expected Output</strong>
+                        </p><p>
+                            <span style="font-family:Courier">{</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"LastUpdateStatus": "Successful",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"FunctionName": "math-function",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"LastModified": "2021-11-11T15:00:58.583+0000",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"RevisionId": "edaddb04-f29e-462b-9779-c65a5ea1abdc",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"MemorySize": 128,</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"State": "Active",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Version": "$LATEST",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Role": "arn:aws:iam::334142322932:role/python-lab-LambdaExRole-1F3OGUZKI0WGF",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Timeout": 3,</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Handler": "math-function.main",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Runtime": "python3.9",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"TracingConfig": {</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Mode": "PassThrough"</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;},</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"CodeSha256": "JxW2Fmkb7121mzIzjX9DihF5i9IcLnx5oS6+hyooA0g=",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Description": "",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"CodeSize": 643,</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"FunctionArn": "arn:aws:lambda:us-west-2:334142322932:function:math-function",</span><br/>
+                            <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"PackageType": "Zip"</span><br/>
+                            <span style="font-family:Courier">}</span><br/>
+                        </p>
+                        </li>
+                    </ol>
+                        <h3>Task 4.2: Test the function with AWS Explorer</h3>
+                        <p>
+                            The <strong>AWS: Explorer</strong> is built into AWS Cloud9. This tool lets you browse and interact with AWS resources in your account.
+                        </p>
+                    <ol>
+                        <li>In the left gutter of the Cloud9 window, choose the AWS logo.</li>
+                        <li>Expand the region and then expand Lambda.</li>
+                        <li>Right click (Context click) on the math-function and choose <strong>Invoke on AWS</strong></li>
+                        <li>
+                            In the code box after <strong>Or, use a sample request payload from a template</strong> enter the following JSON object for the input event.
+                        <pre>
+                            <code class="language-json">
+{
+    "operand1": 2,
+    "operand2": 3,
+    "operation": "add"
+}
+                            </code>
+                        </pre>
+                        </li>
+                        <li>Choose <span class="button grey_button">Invoke</span></li>
+                    </ol>
+                    <p>
+                        The results of your lambda invocation will be displayed in an <strong>AWS Lambda</strong> tab where the terminal window is.
+                    </p>
+                    <p>
+                        <strong>Expected Output</strong>
+                    </p><p>
+                        <span style="font-family:Courier">Loading response...</span><br />
+                        <span style="font-family:Courier">Invocation result for arn:aws:lambda:us-west-2:334142322932:function:math-function</span><br />
+                        <span style="font-family:Courier">Logs:</span><br />
+                        <span style="font-family:Courier">START RequestId: f3ddfb26-fed3-40cd-8c01-3a3d3ef67b81 Version: $LATEST</span><br />
+                        <span style="font-family:Courier">END RequestId: f3ddfb26-fed3-40cd-8c01-3a3d3ef67b81</span><br />
+                        <span style="font-family:Courier">REPORT RequestId: f3ddfb26-fed3-40cd-8c01-3a3d3ef67b81&nbsp;&nbsp;&nbsp;&nbsp;Duration: 1.10 ms&nbsp;&nbsp;&nbsp;&nbsp;Billed Duration: 2 ms&nbsp;&nbsp;Memory Size:
+                        128 MB&nbsp;&nbsp;Max Memory Used: 37 MB&nbsp;&nbsp;Init Duration: 116.37 ms</span><br /><br />
+                        <br /><span style="font-family:Courier">Payload:</span><br />
+                        <span style="font-family:Courier">5</span><br />
+                    </p>
+                    <h3>Task 4.3: Deploying a Lambda function with dependencies</h3>
+                    <p>
+                        Now that you know how to make your code run in AWS Lambda, how do you add dependencies? What do you put in your deployment package?  Create a new function that needs an external package.
+                    </p>
+                    <ol>
+                        <li>
+                            In the AWS Cloud9 console, create a new folder in the environment window name <code class="language-block">my-web-request-function</code>. You can also run the following code in the terminal window.
+                        <pre>
+                            <code class="language-bash">
+cd ~/environment/
+mkdir my-web-request-function
+                            </code>
+                        </pre>
+                        </li>
+                        <li>
+                            Create a new file in the <strong>my-web-request-function</strong> folder named <code class="language-block">web-request-function.py</code>
+                        </li>
+                        <li>
+                            Copy the following code to the <strong>web-request-function.py</strong> file.
+                        <pre>
+                            <code class="language-python">
+import requests
+
+def main(event, context):   
+    response = requests.get("https://www.google.com/")
+    print(response.text)
+    return response.text
+
+if __name__ == "__main__":   
+    main('', '')
+                            </code>
+                        </pre>
+                        </li>
+                    </ol>
+                    <p>
+                    The <strong>requests</strong> package isn't a built-in package that comes with python, you have to install it with pip. The cleanest way to support multiple 
+                    projects on the same machine is to use a virtual environment, but that isn't required. The following steps show you how to create a lambda 
+                    deployment package without and with a virtual environment. You can practice both methods but only one is required to create the package.
+                    </p>
+                    <a class="btn" role="button" data-toggle="collapse" href="#option1" aria-expanded="false" aria-controls="collapseExample">
+                        <strong><i class="fa fa-caret-right" aria-hidden="true"></i> Option 1: Without a Python virtual environment</strong>
+                    </a>
+                    <div class="collapse" id="option1">
+                        <ol>
+                            <li>Install the requests library to a new package directory.
+                                <pre>
+                                    <code class="language-bash">
+pip install --target ./my-web-request-function requests
+                                    </code>
+                                </pre>
+                            </li>
+                            <li>
+                                Zip the contents of the <strong>my-web-request-function</strong> into a deployment package.
+                                <pre>
+                                    <code class="language-bash">
+cd my-web-request-function
+zip  -r my-deployment-package.zip .
+                                    </code>
+                                </pre>
+                            </li>
+                        </ol>
+                    </div>
+                    <a class="btn" role="button" data-toggle="collapse" href="#option2" aria-expanded="false" aria-controls="collapseExample">
+                        <strong><i class="fa fa-caret-right" aria-hidden="true"></i> Option 2: With a Python virtual environment</strong>
+                    </a>
+                    <div class="collapse" id="option2">
+                        <ol>
+                            <li>Create a virtual environment in your function folder.
+                                <pre>
+                                    <code class="language-bash">
+cd my-web-request-function
+python -m venv function-env
+source function-env/bin/activate
+                                    </code>
+                                </pre>
+                            </li>
+                            <li>Install the requests library in your virtual environment.
+                                <pre>
+                                    <code class="language-bash">
+pip install requests
+                                    </code>
+                                </pre></li>
+                            <li>Deactivate the virtual environment.
+                                <pre>
+                                    <code class="language-bash">
+deactivate
+                                    </code>
+                                </pre></li>
+                            <li>Create a deployment package with the installed libraries at the root.
+                                <pre>
+                                    <code class="language-bash">
+cd function-env/lib/python3.7/site-packages
+zip -r ../../../../my-deployment-package.zip .
+                                    </code>
+                                </pre>
+                            <i class="fa fa-info-circle" style="color:blue;" aria-hidden="true"></i> <strong>Important:</strong> The version of python installed by default on 
+                            Cloud9 is version 3.7.  The requests package for 3.7 works for 3.9 but other packages may have compatibility issues. If there is a 
+                            package that isn't compatible with Python 3.9 you can choose a different runtime version for your Lambda function.
+                            </li>
+                            <li>Add function code files to the root of your deployment package.
+                                <pre>
+                                    <code class="language-bash">
+cd ~/environment/my-web-request-function
+zip -g my-deployment-package.zip web-request-function.py
+                                    </code>
+                                </pre>
+                            </li>
+                        </ol>
+                    </div>
+                    <h4>Deploy the Lambda function to AWS</h4>
+                    <ol>
+                        <li>
+                            Run the following command to create a variable with the IAM Role arn for your function. This role was created when you 
+                            launched the Cloudformation that accompanies this workshop.
+                            <pre>
+                                <code class="language-bash">
+roleArn=$(aws iam list-roles --output text --query 'Roles[?contains(RoleName, `LambdaExRole`) == `true`].Arn')
+                                </code>
+                            </pre>
+                        </li>
+                        <li>Use the following command in your terminal to create the lambda function.
+                            <pre>
+                                <code class="language-bash">
+aws lambda create-function \
+--function-name web-request-function  \
+--handler web-request-function.main \
+--runtime python3.9 \
+--role $roleArn \
+--zip-file fileb://my-deployment-package.zip
+                                </code>
+                            </pre>
+                            <p>
+                                <strong>Expected Output</strong>
+                            </p><p>
+                                <span style="font-family:Courier">{</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"LastUpdateStatus": "Successful",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"FunctionName": "web-request-function",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"LastModified": "2021-11-11T15:00:58.583+0000",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"RevisionId": "edaddb04-f29e-462b-9779-c65a5ea1abdc",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"MemorySize": 128,</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"State": "Active",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Version": "$LATEST",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Role": "arn:aws:iam::334142322932:role/python-lab-LambdaExRole-1F3OGUZKI0WGF",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Timeout": 3,</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Handler": "web-request-function.main",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Runtime": "python3.9",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"TracingConfig": {</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Mode": "PassThrough"</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;},</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"CodeSha256": "JxW2Fmkb7121mzIzjX9DihF5i9IcLnx5oS6+hyooA0g=",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"Description": "",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"CodeSize": 643,</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"FunctionArn": "arn:aws:lambda:us-west-2:334142322932:function:math-function",</span><br/>
+                                <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"PackageType": "Zip"</span><br/>
+                                <span style="font-family:Courier">}</span><br/>
+                            </p>
+                        </li>
+                        <li>
+                            In the left gutter of the Cloud9 window, choose the AWS logo.
+                        </li>
+                        <li>
+                            Expand the region and then expand Lambda.
+                        </li>
+                        <li>
+                            Right click (Context click) on the <strong>web-request-function</strong> and choose <strong>Invoke on AWS</strong>.
+                            <br />
+                            <i class="fa fa-info-circle" style="color:blue;" aria-hidden="true"></i> <strong>Important:</strong> If you do not see your new function, refresh the browser window.
+                        </li>
+                        <li>
+                            This function doesn't require an event so you can just choose <span class="button grey_button">Invoke</span>
+                        </li>
+                    </ol>
+                    <p>
+                        The Expected output will show a lot of information. The entire web page returned is written to the log and returned from the function. Update the code and Lambda function to only return and log the status code to just confirm a successful response.
+                    </p>
+                    <ol>
+                        <li>Open the <strong>web-request-function.py</strong> file and update your function with the following code.
+                        <pre>
+                            <code class="language-python">
+import requests
+
+def main(event, context):   
+    response = requests.get("https://google.com/")
+    print('Status:', response.status_code)
+    return 'Status: ' + str(response.status_code)
+
+if __name__ == "__main__":   
+    main('', '')
+                            </code>
+                        </pre>
+                        </li>
+                        <li>
+                            Save the file and replace the file in your deployment package with this one.
+                            <pre>
+                                <code class="language-bash">
+    zip -g my-deployment-package.zip web-request-function.py
+                                </code>
+                            </pre>
+                        </li>
+                        <li>On the AWS: Explorer, right click(context click) on the <strong>>web-request-function</strong> and choose <strong>Upload Lambda...</strong></li>
+                        <li>Choose <strong>ZIP Archive</strong>, expand <strong>my-web-request-function</strong>, select <strong>my-deployment-package.zip</strong>, choose <span class="button green_button">Open</span></li>
+                        <li>Choose <span class="button blue_button">Yes</span></li>
+                    </ol>
+                    <i class="fa fa-sticky-note" style="color: orange;" aria-hidden="true"></i> <strong>Note:</strong> In the background, <strong>AWS: Explorer</strong> runs the <strong>aws lambda update-function-code</strong> method.
+                    
+                    <h4>Test the function again to see the results of your change.</h4>
+                    <ol>
+                        <li>Right click (Context click) on the web-request-function and choose <strong>Invoke on AWS</strong>.</li>
+                        <li>
+                            This function doesn't require an event so you can just choose <span class="button grey_button">Invoke</span>
+                        </li>
+                    </ol>
+                    <p>
+                        <strong>Expected Output</strong>
+                    </p><p>
+                        <span style="font-family:Courier">Loading response...</span><br/>
+                        <span style="font-family:Courier">Invocation result for arn:aws:lambda:us-west-2:334142322932:function:web-request-function</span><br/>
+                        <span style="font-family:Courier">Logs:</span><br/>
+                        <span style="font-family:Courier">START RequestId: 8488b152-b03c-49a5-a46a-4c56109e1fcf Version: $LATEST</span><br/>
+                        <span style="font-family:Courier">Status: 200</span><br/>
+                        <span style="font-family:Courier">END RequestId: 8488b152-b03c-49a5-a46a-4c56109e1fcf</span><br/>
+                        <span style="font-family:Courier">REPORT RequestId: 8488b152-b03c-49a5-a46a-4c56109e1fcf&nbsp;&nbsp;Duration: 480.66 ms&nbsp;&nbsp;&nbsp;&nbsp;Billed Duration: 481 ms&nbsp;&nbsp;Memory Size: 128 MB&nbsp;&nbsp;&nbsp;&nbsp;Max Memory Used: 50 MB&nbsp;&nbsp;Init Duration: 332.08 ms</span><br/><br/><br/>
+                        <span style="font-family:Courier">Payload:</span><br/>
+                        <span style="font-family:Courier">"Status: 200"</span><br/>
+                    </p>
+                    
+                </section>
+                <!-- Task 5 -->
+                <section>
+                    <h2 id="task5">Task 5: Deploy your Lambda function with a zip package</h2>
+                </section>
+                <!-- Task 6 -->
+                <section>
+                    <h2 id="task6">Task 6: Add Event Sources to invoke your lambda function</h2>
+                </section>
+                <!-- Task 7 -->
+                <section>
+                    <h2 id="task7">Challenge Task 7: Create an application the will process files uploaded to S3</h2>
+                    <p>
+                        Using what you have learned in the workshop, can you create a AWS Serverless application that 
+                        processes files uploaded to S3 as JSON documents and puts them in DynamoDB?
+                    </p><p>    
+                        The application should meet the following requirements:
+                    </p>
+                    <ul>
+                        <li>All resources are created with one SAM template</li>
+                        <li>Resources include, one S3 bucket, one DynamoDB table, one Lambda function and all events and permissions required.</li>
+                        <li>The Lambda function should only be triggered when an object that ends with ".json" is created or updated.</li>
+                    </ul>
+                    <p>
+                        In addition to this lab, the following links may be useful.
+                    </p>
+
+                    <ul>
+                        <li><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html" target="_blank">Boto3 DynamoDB documentation</a></li>
+                        <li><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html" target="_blank">Boto3 S3 documentation</a></li>
+                        <li><a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html" target="_blank">AWS SAM Serverless Function reference</a></li>
+                        <li><a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-simpletable.html" target="_blank">AWS SAM Simple Table reference</a></li>
+                        <li><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html" target="_blank">AWS CloudFormation S3 Bucket reference</a></li>
+                    </ul>
+                    <p>
+                        Tips
+                    </p>
+                    <ul>
+                        <li>The S3 bucket will be created with a regular CloudFormation Resource, not a serverless resource.</li>
+                        <li>You can add multiple AWS SAM policy templates to the same function.</li>
+                        <li>You can choose your own JSON structure, but remember that you will have to specify the partition key when you create the table and every record will have to include that attribute.</li>
+                        <li>The S3 event will only give you the bucket name and object key, you will then have to read the object to process the data.</li>
+                    </ul>
+                </section>
+            </div>
+            <!-- Task Navigation -->
+            <div class="col-sm-0 col-lg-2">
+                <nav class="section-nav">
+                    <ul class="list-unstyled">
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#task1">Task 1<br />Lab Preparation</a></li>
+                        <li><a href="#task2">Task 2<br />Complete the Learn Python on AWS Workshop</a></li>
+                        <li><a href="#task3">Task 3<br />Run your scripts on AWS without servers</a></li>
+                        <li><a href="#task4">Task 4<br />Deploy your Lambda function with a zip package</a></li>
+                        <li><a href="#task5">Task 5<br />Deploy your Lambda function with AWS SAM</a></li>
+                        <li><a href="#task6">Task 6<br />Add Event Sources to invoke your lambda function</a></li>
+                        <li><a href="#task7">Task 7<br />Challenge</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+
+</html>

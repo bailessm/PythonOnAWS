@@ -6,29 +6,11 @@ This workshop teaches you how to use Python with AWS services. It will then teac
 
 ## Task 1: Lab Preparation
 
-### Task 1.1: Create a Sandbox lab in AWS Labs
+This lab was written with a common IDE in mind, AWS Cloud9. You can use any IDE that you want, but you may have to install tools such as Python and AWS SAM CLI to complete the instructions.
 
-Sandbox accounts are great to test resources. The advantages that it allows is that it cleans up anything created when you end the lab.  Another advantage is that you can create resources that would not be allowed in your Isengard account, like public S3 buckets.
+If you want to use Cloud9, this task will walk you through launching an AWS CloudFormation template that creates the network, Cloud9 environment, and IAM roles that will be used.
 
-The disadvantages are that the sandbox labs only last for 12 hours, so you may need to recreate your resources if the lab expires before you are done. Also, not all services and features are enabled in the AWS Labs environment yet so you may run into issues for certain services.
-
-1. Click on the link to view the [Sandbox](https://labs.awstc.com/blueprints/Sandbox) template on AWS Labs.
-
-1. Choose the latest blueprint version.
-
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create lab**</span>
-
-1. Choose the **Lab Region**, these instructions should work in any region, but have been thoroughly in **us-west-2**.
-
-1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Session UI**</span>
-
-1. Choose <span style="background-color:#34A853; font-weight:bold; font-size:.7em; color:white; border-radius:2px; padding-left:20px; padding-right:20px; padding-top:5px; padding-bottom:5px;white-space: nowrap;">**Start lab**</span>
-
-1. Choose <span style="background-color:#000; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px; white-space: nowrap;">**Open Console** <i class="fas fa-external-link-alt"></i></span>
-
-### Task 1.2: Launch the base VPC and IAM role stack in AWS CloudFormation
-
-8. On the navigation bar, in the unified search bar, search for and choose `CloudFormation`
+1. On the navigation bar, in the unified search bar, search for and choose `CloudFormation`
 
 1. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create stack** <i class="fas fa-caret-down"></i></span>
 
@@ -119,7 +101,7 @@ You create a Node.js Lambda function using the Lambda console. Lambda automatica
 
 To create a Lambda function with the console
 
-17. On the navigation bar, in the unified search bar, search for and choose `Lambda`
+10. On the navigation bar, in the unified search bar, search for and choose `Lambda`
 
 1. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create Function**</span>
 
@@ -129,7 +111,7 @@ To create a Lambda function with the console
 
 - For Runtime, choose **Python 3.9**
 
-20. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create Function**</span>
+13. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Create Function**</span>
 
 Lambda creates a Python function and an execution role that grants the function permission to upload logs. The Lambda function assumes the execution role when you invoke your function, and uses the execution role to create credentials for the AWS SDK and to read data from event sources.
 
@@ -139,19 +121,19 @@ The Lambda function created has the code stored in the lambda_function.py file. 
 
 The script, imports the built-in json dependency and has one function, the lambda_handler. This initial code, will just return an object with a success status code and string in the body.
 
-21. Replace **# TODO implement** with the following code.
+14. Replace **# TODO implement** with the following code.
 
 ```python
     print(event, context.get_remaining_time_in_millis())
 ```
 
-22. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Deploy**</span>
+15. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Deploy**</span>
 
 If you change your code in the editor window, you have to deploy it before it becomes available for the next invocation. The code you added, will print the event object and get the number of milliseconds that the lambda function can run before it times out from the context object.
 
 ### Task 2.5: Test your lambda function
 
-23. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Test**</span>
+16. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Test**</span>
 
 1. For **Event-name**, enter `test_event`
 
@@ -167,7 +149,7 @@ For small lambda functions using the console to create them will work but this i
 
 ### Task 2.6: Clean up this lambda function
 
-27. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Actions** <i class="fas fa-caret-down"></i></span>
+20. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Actions** <i class="fas fa-caret-down"></i></span>
 
 1. Choose **Delete function**.
 
@@ -183,13 +165,13 @@ For the remaining steps, it will be assumed that you're using Cloud9 as your IDE
 
 A lot of the python lambda functions your create will not need any additional dependencies. As you saw in the workshop, the only dependencies that you needed to install was boto3. That package is already included in the runtime for Python when you invoke a lambda function you just have to import it like any other built-in package.
 
-31. In the AWS Cloud9 console, create a new folder in the environment window name `my-math-function`. You can also run the following code in the terminal window.
+24. In the AWS Cloud9 console, create a new folder in the environment window name `my-math-function`. You can also run the following code in the terminal window.
 
 ```python
 mkdir my-math-function
 ```
 
-32. Create a new file in the **my-math-function** folder named `math-function.py`
+25. Create a new file in the **my-math-function** folder named `math-function.py`
 
 1. Copy the following code to the **math-function.py** file.
 
@@ -245,7 +227,7 @@ if __name__=="__main__":
     print(main(**vars(args)))
 ```
 
-34. Save the file and run it in the terminal with the following code:
+27. Save the file and run it in the terminal with the following code:
 
 ```bash
 cd my-math-function
@@ -317,7 +299,7 @@ if __name__=="__main__":
     print(main(event, None))
 ```
 
-35. Save and run the code in your terminal to confirm it still works
+28. Save and run the code in your terminal to confirm it still works
 
 ```bash
 python math-function.py --operand1 2 --operand2 3 --operation add
@@ -329,7 +311,7 @@ python math-function.py --operand1 2 --operand2 3 --operation add
 
 <i class="fas fa-info-circle fa-lg" style="color:blue"></i> **Important:** If you only care that it works in lambda, you can remove everything from **if \_\_name\_\_=="\_\_main\_\_":** to the end of the file.
 
-36. Add the math-function.py fil to the root of a .zip file.
+29. Add the math-function.py fil to the root of a .zip file.
 
 ```bash
 zip my-math-function.zip math-function.py
@@ -339,13 +321,13 @@ zip my-math-function.zip math-function.py
 
 <span style="font-family:Courier">adding: math-function.py (deflated 68%)</span>
 
-37. Run the following command to create a variable with the IAM Role arn for your function. This role was created when you launched the Cloudformation that accompanies this workshop.
+30. Run the following command to create a variable with the IAM Role arn for your function. This role was created when you launched the Cloudformation that accompanies this workshop.
 
 ```bash
 roleArn=$(aws iam list-roles --output text --query 'Roles[?contains(RoleName, `LambdaExRole`) == `true`].Arn')
 ```
 
-38. Use the following command in your terminal to create the lambda function.
+31. Use the following command in your terminal to create the lambda function.
 
 ```bash
 aws lambda create-function \
@@ -380,11 +362,11 @@ aws lambda create-function \
 <span style="font-family:Courier">&nbsp;&nbsp;&nbsp;&nbsp;"PackageType": "Zip"</span><br/>
 <span style="font-family:Courier">}</span><br/>
 
-39. Test the function with AWS Explorer
+32. Test the function with AWS Explorer
 
 The **AWS: Explorer** is built into AWS Cloud9. This tool lets you browse and interact with AWS resources in your account.
 
-40. In the left gutter of the Cloud9 window, choose the AWS logo.
+33. In the left gutter of the Cloud9 window, choose the AWS logo.
 
 1. Expand the region and then expand Lambda.
 
@@ -400,7 +382,7 @@ The **AWS: Explorer** is built into AWS Cloud9. This tool lets you browse and in
 }
 ```
 
-44. Choose <span style="ssb_grey;white-space: nowrap;">**Invoke**</span>
+37. Choose <span style="ssb_grey;white-space: nowrap;">**Invoke**</span>
 
 The results of your lambda invocation will be displayed in an **AWS Lambda** tab where the terminal window is.
 **Expected Output**
@@ -419,14 +401,14 @@ The results of your lambda invocation will be displayed in an **AWS Lambda** tab
 
 Now that you know how to make your code run in AWS Lambda, how do you add dependencies? What do you put in your deployment package?  Create a new function that needs an external package.
 
-45. In the AWS Cloud9 console, create a new folder in the environment window name `my-web-request-function`. You can also run the following code in the terminal window.
+38. In the AWS Cloud9 console, create a new folder in the environment window name `my-web-request-function`. You can also run the following code in the terminal window.
 
 ```python
 cd ~/environment/
 mkdir my-web-request-function
 ```
 
-46. Create a new file in the **my-web-request-function** folder named `web-request-function.py`
+39. Create a new file in the **my-web-request-function** folder named `web-request-function.py`
 
 1. Copy the following code to the **web-request-function.py** file.
 
@@ -446,7 +428,8 @@ The **requests** package isn't a built-in package that comes with python, you ha
 
 **Option 1:**
 
-<details><summary>Without a Python virtual environment</summary>
+<details>
+<summary>Without a Python virtual environment</summary>
 <p>
 
 1. Install the requests library to a new package directory.
@@ -468,7 +451,8 @@ zip  -r my-deployment-package.zip .
 
 **Option 2:**
 
-<details><summary>With a Python virtual environment</summary>
+<details>
+<summary>With a Python virtual environment</summary>
 <p>
 
 1. Create a virtual environment in your function folder.
@@ -985,6 +969,18 @@ sam deploy --stack-name sam-app --capabilities CAPABILITY_IAM --resolve-s3
 ```
 
 If you go to Cloudwatch, you can see that the website is polled every 1 minute. with the Schedule property, you can use rate expressions as you did here or cron expressions for more granularity. You can also add more than one event if you need to. For this application you may want to have multiple events to poll different websites.
+
+### Task 6.3: Cleanup your sam application
+
+To remove the sam application you have two options, you can either delete the CloudFormation stack that was created or you can use the sam cli to delete it.
+
+1. Run the following command to delete the SAM application.
+
+```bash
+sam delete --stack-name sam-app
+```
+
+1. Press **y** for yes twice.
 
 ## Challenge Task 7: Create an application the will process files uploaded to S3
 
