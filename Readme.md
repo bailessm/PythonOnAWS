@@ -50,7 +50,7 @@ You have learned the basics of the python language and how to interact with AWS 
 
 To do this, you need a computational service to run your python scripts in response to these types of interactions. That service is AWS Lambda.
 
-### Task 2.1: The Lambda handler function
+### Task 3.1: The Lambda handler function
 
 The Lambda function handler is the method in your function code that processes events. When your function is invoked, Lambda runs the handler method. When the handler exits or returns a response, it becomes available to handle another event.
 
@@ -85,7 +85,7 @@ The event object would be statically set as a test event or you can use the argu
 
 What are the two arguments added to the lambda_handler function?
 
-### Task 2.2: The event and context required arguments
+### Task 3.2: The event and context required arguments
 
 When Lambda invokes your function handler, the Lambda runtime passes two arguments to the function handler:
 
@@ -95,7 +95,7 @@ When Lambda invokes your function handler, the Lambda runtime passes two argumen
 
 - The second argument is the context object. A [context object](https://docs.aws.amazon.com/lambda/latest/dg/python-context.html) is passed to your function by Lambda at runtime. This object provides methods and properties that provide information about the invocation, function, and runtime environment.
 
-### Task 2.3: Create a simple lambda function in the console
+### Task 3.3: Create a simple lambda function in the console
 
 You create a Node.js Lambda function using the Lambda console. Lambda automatically creates default code for the function.
 
@@ -115,7 +115,7 @@ To create a Lambda function with the console
 
 Lambda creates a Python function and an execution role that grants the function permission to upload logs. The Lambda function assumes the execution role when you invoke your function, and uses the execution role to create credentials for the AWS SDK and to read data from event sources.
 
-### Task 2.4: Edit the function code
+### Task 3.4: Edit the function code
 
 The Lambda function created has the code stored in the lambda_function.py file. You can see the contents of this file in the Code Source section of the page.
 
@@ -131,7 +131,7 @@ The script, imports the built-in json dependency and has one function, the lambd
 
 If you change your code in the editor window, you have to deploy it before it becomes available for the next invocation. The code you added, will print the event object and get the number of milliseconds that the lambda function can run before it times out from the context object.
 
-### Task 2.5: Test your lambda function
+### Task 3.5: Test your lambda function
 
 16. Choose <span style="background-color:#ec7211; font-weight:bold; font-size:.7em; color:white; position:relative; top:-1px; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Test**</span>
 
@@ -147,7 +147,7 @@ The Execution results tab opened when you tested the function with this new test
 
 For small lambda functions using the console to create them will work but this isn't the most efficient method that you can use when developing lambda functions.
 
-### Task 2.6: Clean up this lambda function
+### Task 3.6: Clean up this lambda function
 
 20. Choose <span style="background-color:fff; font-weight:bold; font-size:.7em; color:#545b64; position:relative; top:-1px; border-color:#545b64; border-radius:2px; border-width:1px; border-style:solid; padding-top:5px; padding-bottom:5px; padding-left:20px; padding-right:20px;white-space: nowrap;">**Actions** <i class="fas fa-caret-down"></i></span>
 
@@ -311,7 +311,7 @@ python math-function.py --operand1 2 --operand2 3 --operation add
 
 <i class="fas fa-info-circle fa-lg" style="color:blue"></i> **Important:** If you only care that it works in lambda, you can remove everything from **if \_\_name\_\_=="\_\_main\_\_":** to the end of the file.
 
-29. Add the math-function.py fil to the root of a .zip file.
+29. Add the math-function.py file to the root of a .zip file.
 
 ```bash
 zip my-math-function.zip math-function.py
@@ -846,8 +846,6 @@ Now, test the function with your web browser.
 1. Choose the **Prod** URL to copy it to your clipboard.
 
 1. Open a new web browser tab and paste the url from your clipboard, append `webRequestFunction` to the end, press the Enter key.
-
-AWS Explorer -> API Gateway -> Copy URL -> Prod -> Paste in new web browser tab -> append  `/webRequestFunction` and go.
 
 The actual result will vary based on your web browser but you should see and OK status returned.
 

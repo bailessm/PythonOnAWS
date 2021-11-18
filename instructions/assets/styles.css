@@ -48,6 +48,8 @@ body {
   }
   
   .jumbotron {
+    background-image: url(bluegreenbackground.png);
+    background-size: cover;
     color: #fff;
   }
   li{
@@ -81,8 +83,8 @@ body {
     border-width: 1px;
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     white-space: nowrap;
     color: #545b64;
     border-color: #545b64;
@@ -95,8 +97,20 @@ body {
     color: white;
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    white-space: nowrap;
+  }
+  /* green square button */
+  .grnsb{
+    background-color: #34A853;
+    font-weight: bold;
+    font-size: 90%;
+    color: white;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 20px;
+    padding-right: 20px;
     white-space: nowrap;
   }
   /* blue navigation button */
@@ -107,8 +121,8 @@ body {
     color: white;
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     white-space: nowrap;
   }
   /* grey rounded button */
@@ -123,8 +137,8 @@ body {
     border-color: #444;
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     white-space: nowrap;
   }
   /* blue rounded button */
@@ -136,8 +150,8 @@ body {
     border-radius: 5px;
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     white-space: nowrap;
   }
   /* light blue square button */
@@ -148,53 +162,12 @@ body {
     color: white;
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     white-space: nowrap;
   }
   /*blue link button*/
   .bl{
     color:#0073bb;
     white-space: nowrap;
-    }
-    .button {
-        padding-top:5px; 
-        padding-bottom:5px; 
-        padding-left:20px; 
-        padding-right:20px;
-        white-space: nowrap;
-        position:relative;
-        font-weight:bold;
-        font-size:.7em;
-        top:-1px;
-    }
-    .white_button{
-        background-color:fff; 
-        color:#545b64;
-        border-color:#545b64; 
-        border-radius:2px; 
-        border-width:1px; 
-        border-style:solid; 
-    }
-    .orange_button{
-        background-color:#ec7211;
-        color:white;
-    }
-    .grey_button{
-        background-color:#DEDEDE; 
-        color:#444; position:relative; 
-        border-radius:5px; 
-        border-width:1px; 
-        border-style:solid; 
-        border-color:#444;
-    }
-    .green_button{
-        background-color:#34A853; 
-        color:white; 
-        border-radius:2px;
-    }
-    .blue_button{
-        background-color:#257ACF; 
-        color:white; 
-        border-radius:5px;
     }

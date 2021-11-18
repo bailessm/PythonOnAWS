@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Running Python on AWS</title>
+    <title>Task 1 - Workshop Preparation</title>
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/themes/prism-coy.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/styles.css">
@@ -16,58 +16,60 @@
 <body>
     <header class="container-fluid jumbotron">
         <h1>Running Python on AWS</h1>
+        <small>Task 1: Workshop Preparation</small>
     </header>
     <div class="container">
         <div class="row">
             <!-- Lab Tasks -->
             <div class="col-sm-12 col-lg-10">
-                <!-- Learning Objectives -->
+                <!-- Task Objectives -->
                 <section>
-                    <h2>Learning Objectives</h2>
+                    <h2>Task Objectives</h2>
                     <ul>
-                        <li>Learn the basic Python syntax</li>
-                        <li>Learn how to use Python to interact with AWS services</li>
-                        <li>Learn how to run your Python scripts on AWS without servers</li>
-                        <li>Learn how to deploy your Python scripts to AWS</li>
-                        <li>Learn how to invoke you Python scripts with different event types</li>
+                        <li>Deploy an AWS Cloud9 environment to complete this workshop</li>
                     </ul>
                 </section>
-                <!-- Introduction -->
-                <section>
-                    <h2 id="introduction">Introduction</h2>
-                    <p>
-                        This workshop teaches you how to use Python with AWS services.
-                        It will then teach you how to host your Python scripts on AWS so that they
-                        can be invoked by common event patterns.
-                    </p>
-                    <p>
-                        There are two parts to this series. Part 1 is learning the Python syntax and service
-                        integrations
-                        using the <strong>Learn Python on AWS Workshop</strong>. This is completed in Task 2 and can take around 8
-                        hours to complete.
-                        This doesn't have to be completed all at once.
-                    </p>
-                    <p>
-                        After you are comfortable with the basics of Python and how you use it with AWS services, you
-                        return and pick up at Task 3.
-                    </p>
-                    <p>
-                        Starting with Task 3 you will learn how to use AWS Lambda to run Python code on AWS. You will
-                        use both the AWS console and
-                        cli to create deploy and invoke lambda functions.
-                    </p>
-                    <p>
-                        Once your comfortable with Lambda you will learn how to use AWS SAM for deploying your Lambda
-                        functions
-                        and use other services to invoke the Lambda functions with different event types.
-                    </p>
-                    <p>
-                        You will finally be given a challenge to develop your own application. The proposed application
-                        will use Amazon S3, Lambda, and DynamoDB, but at this point you should be equipped to develop
-                        anything using Python to tie AWS services together.
-                    </p>
-                </section>
-                
+            <!-- Task 1 -->
+            <section>
+                <h2 id="task1">Task 1: Workshop Preparation</h2>
+                <p>
+                    This lab was written with a common IDE in mind, AWS Cloud9. You can use any IDE that you want,
+                    but you may have to install tools such as Python and AWS SAM CLI to complete the instructions.
+                </p>
+                <p>
+                    If you want to use Cloud9, this task will walk you through launching an AWS CloudFormation
+                    template
+                    that creates the network, Cloud9 environment, and IAM roles that will be used.
+                </p>
+                <ol>
+                    <li>On the navigation bar, in the unified search bar, search for and choose <code
+                        class="language-block">CloudFormation</code>
+                    </li>
+                    <li>
+                        Choose <span class="wsb">Create stack <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                    </li>
+                    <li>
+                        Choose <strong>With new resources (standard)</strong>
+                    </li>
+                    <li>
+                        For Amazon S3 URL enter <code class="language-block">https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/pythonForAWSSupplimental/template.yml</code>
+                    </li>
+                    <li>
+                        Choose <span class="osb">Next</span>
+                    </li>
+                    <li>Enter a stack name such as <code class="language-block">python-lab</code></li>
+
+                    <li>Choose <span class="osb">Next</span></li>
+
+                    <li>Choose <span class="osb">Next</span></li>
+
+                    <li>Check the box for <strong>I acknowledge that AWS CloudFormation might create IAM resources.</strong>, and choose <span class="osb">Next</span></li>
+
+                </ol>
+                <p>
+                    This stack will take about 3 minutes to launch. It creates a VPC with a public subnet, a role that you will use for your lambda functions, and an AWS Cloud9 environment.
+                </p>
+            </section>
             </div>
             <!-- Task Navigation -->
             <div class="col-sm-0 col-lg-2">
@@ -79,14 +81,14 @@
                         <li><a href="task3.html">Task 3<br />Run your scripts on AWS without servers</a></li>
                         <li><a href="task4.html">Task 4<br />Deploy your Lambda function with a zip package</a></li>
                         <li><a href="task5.html">Task 5<br />Deploy your Lambda function with AWS SAM</a></li>
-                        <li><a href="task6.html">Task 6<br />Add Event Sources to invoke your Lambda function</a></li>
+                        <li><a href="task6.html">Task 6<br />Add Event Sources to invoke your lambda function</a></li>
                         <li><a href="task7.html">Task 7<br />Challenge and beyond</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
         <div class="row justify-content-end">
-            <div class="col-xs-6 offset-xs-6"><button class="osb btn" href="task1.html">Next Task</button></div>
+            <div class="col-xs-6 offset-xs-6"><button class="osb btn" href="task2.html">Next Task</button></div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
