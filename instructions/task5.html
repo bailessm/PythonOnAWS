@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Running Python on AWS - Task 5 - Deploy your Lambda function with AWS SAM</title>
+    <title>Task 5 - Deploy your Lambda function with AWS SAM</title>
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/themes/prism-coy.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/styles.css">
@@ -26,12 +26,12 @@
                 <section>
                     <h2>Task Objectives</h2>
                     <ul>
-                        <li>Learn how to Deploy your Python scripts to AWS</li>
+                        <li>Learn how to consistently deploy your python application to AWS</li>
                     </ul>
                 </section>
             <!-- Task 5 -->
+            <h2>Deploy your Lambda function with AWS SAM</h2>
             <section>
-                <h2 id="task5">Task 5: Deploy your Lambda function with a zip package</h2>
                 <p>
                     Now that you know the basics of how to run your code with AWS Lambda you can learn an easier way to deploy your application 
                     with AWS SAM. AWS SAM handles packaging and deployment of your serverless applications with a simplified AWS CloudFormation 
@@ -45,14 +45,14 @@
                     Create a new folder in your Cloud9 environment to hold your SAM application and structure.
                 </p>
                 <ol>
-                    <li>Create a new folder named <code class="language-block">sam-app</code>, using the following code.
+                    <li>Create a new folder named <code class="language-block">sam-app</code>. You can use the following code to do this.
                     <pre>
                         <code class="language-bash">
 cd ~/environment
 mkdir sam-app
                         </code></pre>
                     </li>
-                    <li>Create a new folder in the <strong>sam-app</strong> folder to hold your python code.
+                    <li>Create a new folder in the <strong>sam-app</strong> folder to hold the code for your Lambda function.
                     <pre>
                         <code class="language-bash">
 cd ~/environment/sam-app
@@ -79,12 +79,12 @@ touch app.py
 import requests
 
 def main(event, context):   
-response = requests.get("https://google.com")
-print('Status:', response.status_code)
-return 'Status: ' + str(response.status_code)
+    response = requests.get("https://google.com")
+    print('Status:', response.status_code)
+    return 'Status: ' + str(response.status_code)
 
 if __name__ == "__main__":   
-main('', '')
+    main('', '')
                         </code></pre>
                     </li>
                     <li>Modify the app.py file to return a standard response with the following code.
@@ -94,28 +94,28 @@ import requests
 import json
 
 def lambdaResponse(status_code, body):
-response = {}
-response['statusCode'] = status_code
-response['body'] = json.dumps(body)
-return response
+    response = {}
+    response['statusCode'] = status_code
+    response['body'] = json.dumps(body)
+    return response
 
 def main(event, context):   
-response = requests.get("https://google.com")
-print('Status:', response.status_code)
-return lambdaResponse(response.status_code, {'Status': response.reason})
+    response = requests.get("https://google.com")
+    print('Status:', response.status_code)
+    return lambdaResponse(response.status_code, {'Status': response.reason})
 
 if __name__ == "__main__":   
-print(main('', ''))
+    print(main('', ''))
                         </code></pre>
                     
                     </li>
                 </ol>
                 <p>
-                    In this modification, you created a formal response object to be returned.  This object is in the format required by the API gateway with Lambda proxy integration 
-                    which will be used first. There was a slight modification to the function if run under <em>__main__</em> as well so that you can see the response that you are returning.
+                    In this modification, you created a formal response object to be returned.  This object is in the format required by the API gateway with Lambda proxy integration. 
+                    You will enable this integration later. There was a slight modification to the function if run under <em>__main__</em> as well so that you can see the response you would return in the console.
                 </p>
                 <ol>
-                    <li>Test the code locally on your Cloud9 instance.
+                    <li>Install the dependency and test the code locally on your Cloud9 instance.
                     <pre>
                         <code class="language-bash">
 pip install -r requirements.txt
@@ -128,9 +128,9 @@ python app.py
                     </p>
                     </li>
                 </ol>
-                <h3>Task 5.2 Create the SAM template</h3>
+                <h3>Task 5.2 Create the AWS SAM template</h3>
                 <p>
-                    AWS SAM templates are an extension of AWS CloudFormation templates, with additional components that make them easier to work with. You can see the full AWS SAM specification documentation <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html">here</a>.
+                    AWS SAM templates are an extension of AWS CloudFormation templates, with additional components that make them easier to work with. You can see the full AWS SAM specification documentation <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html" target="_blank">here</a>.
                 </p>
                 <ol>
                     <li>In the <strong>sam-app</strong> folder, create a <code class="language-block">template.yml</code> file.
@@ -146,32 +146,30 @@ touch template.yml
 Transform: AWS::Serverless-2016-10-31
 
 Resources:
-webRequestFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-    Runtime: python3.9
-    CodeUri: web-request/
-    Handler: app.main
-                            </code>
-                        </pre>
+    webRequestFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            Runtime: python3.9
+            CodeUri: web-request/
+            Handler: app.main
+                            </code></pre>
                     </li>
                 </ol>
-                <p>This simple template specifies the Serverless transform version that it is using. After than there is one resource created that describes the lambda function and where 
-                    the code it located, relative to the template.</p>
+                <p>This simple template specifies the Serverless transform version that it is using. Then there is one resource created that describes the lambda function and where 
+                    the code it located relative to the template.</p>
                 <p>Instead of upgrading the version of python that is installed on Cloud9 to build this SAM application, you will use a container for the proper runtime.  First, you have to 
                     modify your AWS Cloud9 instance.</p>
                 <p>AWS Cloud9 instances are deployed with the least amount of resources possible to be cost efficient. It is common to require additional space for large development projects, 
                     especially if container images are used. 
                     To avoid compatibility issues, you will use a container image to build your AWS SAM application for deployment. This requires more disk space to download that container image. 
-                    More information on what happens during this step is linked <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/move-environment.html#move-environment-resize">here</a>.</p>
+                    More information on what happens during this step is linked <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/move-environment.html#move-environment-resize" target="_blank">here</a>.</p>
                 <ol>
                     <li>Run the following code to download the resize script and change your Cloud9 disk to 15GB.
                         <pre>
                             <code class="language-bash">
 wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/pythonForAWSSupplimental/resize.sh
 sh resize.sh 15
-                            </code>
-                        </pre>
+                            </code></pre>
                     </li>
                 </ol>
                 <p>
@@ -182,16 +180,15 @@ sh resize.sh 15
                         <pre>
                             <code class="language-bash">
 sam build --use-container
-                            </code>
-                        </pre>
+                            </code></pre>
                     </li>
                 </ol>
                 <p>This command inspects your template to make sure it is valid, downloads any dependencies needed for your code, 
                     and bundles it all for deployment.</p>
 
-                <h3>Task 5.3 Test locally</h3>
+                <h3>Task 5.3 Invoke your lambda function locally</h3>
                 <p>
-                    With SAM you can test your application before deploying it to AWS.
+                    With SAM you can invoke your application's functions before deploying it to AWS.
                 </p>
                 <ol>
                     <li>
@@ -199,13 +196,12 @@ sam build --use-container
                         <pre>
                             <code class="language-bash">
 sam local invoke webRequestFunction
-                            </code>
-                        </pre>
+                            </code></pre>
                     </li>
                 </ol>
                 <p>
                     This command will use a container for the proper runtime of your function and then invoke it just as the lambda 
-                    service would. If you needed to pass an event object, you can do that. Your test function does not need one so it was not included.  For information on that syntax enter <code class="language-block">sam local invoke -h</code>
+                    service would. If you needed to pass an event object, you can do that. Your test function does not need one so it was not included.  If you need information on that syntax, enter <code class="language-block">sam local invoke -h</code>
                 </p>
                 <h3>Task 5.4 Deploy with AWS SAM</h3>
                 <p>
@@ -216,8 +212,7 @@ sam local invoke webRequestFunction
                         <pre>
                             <code class="language-bash">
 sam deploy --stack-name sam-app --capabilities CAPABILITY_IAM --resolve-s3
-                            </code>
-                        </pre>
+                            </code></pre>
                     </li>
                 </ol>
                 <p>
@@ -244,7 +239,7 @@ sam deploy --stack-name sam-app --capabilities CAPABILITY_IAM --resolve-s3
                     <ul class="list-unstyled">
                         <li><a href="index.html">Introduction</a></li>
                         <li><a href="task1.html">Task 1<br />Lab Preparation</a></li>
-                        <li><a href="task2.html">Task 2<br />Complete the Learn Python on AWS Workshop</a></li>
+                        <li><a href="task2.html">Task 2<br />Complete the learn python on AWS workshop</a></li>
                         <li><a href="task3.html">Task 3<br />Run your scripts on AWS without servers</a></li>
                         <li><a href="task4.html">Task 4<br />Deploy your Lambda function with a zip package</a></li>
                         <li><a href="task5.html">Task 5<br />Deploy your Lambda function with AWS SAM</a></li>
@@ -254,8 +249,8 @@ sam deploy --stack-name sam-app --capabilities CAPABILITY_IAM --resolve-s3
                 </nav>
             </div>
         </div>
-        <div class="row justify-content-end">
-            <div class="col-xs-6 offset-xs-6"><button class="osb btn" href="task6.html">Next Task</button></div>
+        <div class="row justify-content-end  eof">
+            <div class="col-xs-6 offset-xs-6"><a class="bl" href="task6.html">Next Task</a></div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

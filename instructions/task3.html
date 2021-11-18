@@ -26,23 +26,23 @@
                 <section>
                     <h2>Task Objectives</h2>
                     <ul>
-                        <li>Learn how to run your Python scripts on AWS without servers</li><li>Learn how to invoke you Python scripts with different event types</li>
+                        <li>Learn how to run your python scripts on AWS without servers</li>
                     </ul>
                 </section>
             <!-- Task 3 -->
             <section>
-                <h2 id="task3">Task 3: Run your scripts on AWS without servers</h2>
+                <h2>Run your scripts on AWS without servers</h2>
                 <p>
-                    You have learned the basics of the python language and how to interact with AWS services. These skills are important to manipulate and use cloud services.  But what if you didn't want to run the scripts from your workstation or on-demand?  The usefulness of these applications are increased exponentially when you can run them from a web address, on a schedule, or in response to an event.
+                    You have learned the basics of the python language and how to interact with AWS services. These skills are important to programmatically use cloud services.  But what if you do not want to run the scripts from your workstation or on-demand?  The usefulness of these applications are increased exponentially when you can run them from a web address, on a schedule, or in response to an event.
                 </p><p>
                     To do this, you need a computational service to run your python scripts in response to these types of interactions. That service is AWS Lambda.
                 </p>
                 <h3>Task 3.1: The Lambda handler function</h3>
                 <p>
-                    The Lambda function handler is the method in your function code that processes events. When your function is invoked, Lambda runs the handler method. When the handler exits or returns a response, it becomes available to handle another event.
+                    The Lambda function handler is the method in your function code that processes events from Lambda. When your function is invoked, Lambda runs the handler method. When the handler exits or returns a response, it becomes available to handle another event.
                 </p>
                 <p>
-                    You can use the following general syntax when creating a function handler in Python:
+                    You can use the following general syntax when creating a function handler in python:
                 </p>
                 <pre>
                 <code class="language-python">
@@ -51,13 +51,13 @@ def handler_name(event, context):
 return some_value
                 </code></pre>
                 <p>
-                    The handler function provides the same functionality in Lambda that your main function did in the Python workshop. It allows you to control the flow of your script.
+                    The handler function provides the same functionality in Lambda that your main function did in the python workshop. It allows you to control the flow of your script.
                 </p>
                 <p>
                     You do not have to call the function from your code. Lambda does that when the Lambda function is invoked.
                 </p>
                 <p>
-                    You can leave the conditional check for <strong>__main__</strong> in your code since lambda doesn't run under that namespace. If you want to be able to run the same script from lambda and your cli, you can still use code like the code below.
+                    You can leave the conditional check for <strong>__main__</strong> in your code since lambda doesn't run under that namespace. If you want to be able to run the same script from lambda and your cli, you can still use code like the following example.
                 </p>
                 <pre>
                 <code class="language-python">
@@ -79,13 +79,13 @@ lambda_handler(event, None)
                 What are the two arguments added to the lambda_handler function?
             </p>
 
-            <h3>Task 3.2: The event and the context required arguments</h3>
+            <h3>Task 3.2: The event and context required arguments</h3>
             <p>
-                When Lambda invokes your function handler, the Lambda runtime passes two arguments to the function handler:
+                When Lambda invokes your function, the Lambda runtime passes two arguments to the function handler:
             </p>
             <ul>
                 <li>
-                    <p>The first argument is the <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event" target="_blank">event object</a>. An event is a JSON-formatted document that contains data for a Lambda function to process. The Lambda runtime converts the event to an object and passes it to your function code. It is usually of the Python dict type. It can also be list, str, int, float, or the NoneType type.
+                    <p>The first argument is the <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event" target="_blank">event object</a>. An event is a JSON-formatted document that contains data for a Lambda function to process. The Lambda runtime converts the event to an object and passes it to your function code. It is usually of the python dict type. It can also be list, str, int, float, or the NoneType type.
                     </p><p>
                         The event object contains information from the invoking service. When you invoke a function, you determine the structure and contents of the event. When an AWS service invokes your function, the service defines the event structure. For more information about events from AWS services, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-services.html" target="_blank">Using AWS Lambda with other services</a>.
                     </p>
@@ -97,7 +97,7 @@ lambda_handler(event, None)
 
             <h3>Task 3.3: Create a simple lambda function in the console</h3>
             <p>
-                You create a Node.js Lambda function using the Lambda console. Lambda automatically creates default 
+                You can create a python Lambda function using the Lambda console. Lambda automatically creates default 
                 code for the function.
             </p>
             <p>
@@ -115,15 +115,15 @@ lambda_handler(event, None)
                 <li>Choose <span class="osb">Create Function</span></li>
             </ol>
             <p>
-                Lambda creates a Python function and an execution role that grants the function permission to upload logs. 
+                Lambda creates a python function and an execution role that grants the function permission to upload logs. 
                 The Lambda function assumes the execution role when you invoke your function, and uses the execution role 
-                to create credentials for the AWS SDK and to read data from event sources.
+                to create credentials for the AWS SDK and to interact with AWS services.
             </p>
 
             <h3>Task 3.4: Edit the function code</h3>
             <p>
-                The Lambda function created has the code stored in the lambda_function.py file. You can see the contents of 
-                this file in the Code Source section of the page.
+                The Lambda function created has the code stored in the <strong>lambda_function.py</strong> file. You can see the contents of 
+                this file in the <strong>Code Source</strong> section of the page.
             </p>
             <p>
                 The script, imports the built-in json dependency and has one function, the lambda_handler. This initial code, 
@@ -145,25 +145,27 @@ print(event, context.get_remaining_time_in_millis())
             </p>
 
             <h3>Task 3.5 Test your Lambda function</h3>
+            <p>Create a test event to invoke your function from the console and invoke it.</p>
             <ol>
                 <li>Choose <span class="osb">Test</span></li>
                 <li>For <strong>Event-name</strong>, enter <code class="language-block">test_event</code></li>
                 <li>Choose <span class="osb">Create</span></li>
                 <li>Choose <span class="osb">Test</span></li>
             </ol>
-            <p>In this task you first created a test event. You left the default event in since anything will work for this 
-                function, but you can modify that test event if your lambda function expects a valid event to be passed.</p>
+            <p>In this task you first created a test event. You left the default event in since this 
+                function doesn't require information to be passed to it with the event object.</p>
             <p>
                 The Execution results tab opened when you tested the function with this new test event. You can see the 
-                Response was returned and the full log output from the lambda function. The second line of the log shows 
+                <strong>Response</strong> was returned and the full log output from the lambda function. The second line of the log shows 
                 your event and an integer which is the number of milliseconds left that the lambda function can run.
             </p>
             <p>
-                For small lambda functions using the console to create them will work but this isn't the most efficient method 
-                that you can use when developing lambda functions.
+                For small one-off lambda functions, using the console to create them will work. Generally you want to create lambda functions programmatically as a
+                part of your normal development lifecycle.
             </p>
 
             <h3>Task 3.6: Clean up this lambda function</h3>
+            <p>You will no longer need this simple Lambda function so you can clean it up before proceeding.</p>
             <ol>
                 <li>Choose <span class="wsb">Actions <i class="fa fa-caret-down" aria-hidden="true"></i></span></li>
                 <li>Choose <strong>Delete function</strong></li>
@@ -179,7 +181,7 @@ print(event, context.get_remaining_time_in_millis())
                     <ul class="list-unstyled">
                         <li><a href="index.html">Introduction</a></li>
                         <li><a href="task1.html">Task 1<br />Lab Preparation</a></li>
-                        <li><a href="task2.html">Task 2<br />Complete the Learn Python on AWS Workshop</a></li>
+                        <li><a href="task2.html">Task 2<br />Complete the learn python on AWS workshop</a></li>
                         <li><a href="task3.html">Task 3<br />Run your scripts on AWS without servers</a></li>
                         <li><a href="task4.html">Task 4<br />Deploy your Lambda function with a zip package</a></li>
                         <li><a href="task5.html">Task 5<br />Deploy your Lambda function with AWS SAM</a></li>
@@ -189,8 +191,8 @@ print(event, context.get_remaining_time_in_millis())
                 </nav>
             </div>
         </div>
-        <div class="row justify-content-end">
-            <div class="col-xs-6 offset-xs-6"><button class="osb btn" href="task4.html">Next Task</button></div>
+        <div class="row justify-content-end eof">
+            <div class="col-xs-6 offset-xs-6"><a class="bl" href="task4.html">Next Task</a></div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Running Python on AWS - Task 7 - Challenge and beyond</title>
+    <title>Task 7 - Challenge and beyond</title>
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/themes/prism-coy.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/styles.css">
@@ -27,23 +27,30 @@
                     <h2>
                         Task Objectives</h2>
                     <ul>
-                        <li>Practice using Python to interact with AWS services</li>
-                        <li>Practice running your Python scripts on AWS without servers</li>
-                        <li>Practice invoking you Python scripts with different event types</li>
+                        <li>Practice using python to interact with AWS services</li>
+                        <li>Practice running your python scripts on AWS without servers</li>
+                        <li>Practice invoking you python scripts with different event types</li>
                     </ul>
                 </section>
             <!-- Task 7 -->
             <section>
-                <h2 id="task7">Challenge Task 7: Create an application the will process files uploaded to S3</h2>
+                <h2>Challenge and beyond</h2>
                 <p>
-                    Using what you have learned in the workshop, can you create a AWS Serverless application that 
-                    processes files uploaded to S3 as JSON documents and puts them in DynamoDB?
+                    Using what you have learned in the workshop, can you create an AWS Serverless application that 
+                    processes files uploaded to S3 as JSON documents and put them in DynamoDB?
                 </p><p>    
                     The application should meet the following requirements:
                 </p>
                 <ul>
                     <li>All resources are created with one SAM template</li>
-                    <li>Resources include, one S3 bucket, one DynamoDB table, one Lambda function and all events and permissions required.</li>
+                    <li>Resources include: 
+                        <ul>
+                            <li>One S3 bucket</li>
+                            <li>One DynamoDB table</li>
+                            <li>One Lambda function</li>
+                            <li>All events and permissions required</li>
+                        </ul>   
+                    </li>
                     <li>The Lambda function should only be triggered when an object that ends with ".json" is created or updated.</li>
                 </ul>
                 <p>
@@ -74,7 +81,7 @@
                     <ul class="list-unstyled">
                         <li><a href="index.html">Introduction</a></li>
                         <li><a href="task1.html">Task 1<br />Lab Preparation</a></li>
-                        <li><a href="task2.html">Task 2<br />Complete the Learn Python on AWS Workshop</a></li>
+                        <li><a href="task2.html">Task 2<br />Complete the learn python on AWS workshop</a></li>
                         <li><a href="task3.html">Task 3<br />Run your scripts on AWS without servers</a></li>
                         <li><a href="task4.html">Task 4<br />Deploy your Lambda function with a zip package</a></li>
                         <li><a href="task5.html">Task 5<br />Deploy your Lambda function with AWS SAM</a></li>

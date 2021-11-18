@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Running Python on AWS - Task 4 - Deploy your Lambda function with a zip package</title>
+    <title>Task 4 - Deploy your Lambda function with a zip package</title>
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/themes/prism-coy.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/styles.css">
@@ -26,29 +26,29 @@
                 <section>
                     <h2>Task Objectives</h2>
                     <ul>
-                        <li>Learn how to deploy your Python scripts to AWS</li>
+                        <li>Learn how to consistently deploy your python application to AWS</li>
                     </ul>
                 </section>
             <!-- Task 4 -->
             <section>
-                <h2 id="task4">Task 4: Run your scripts on AWS without servers</h2>
+                <h2>Deploy your Lambda function with a zip package</h2>
                 <p>
-                    For the remaining steps, it will be assumed that you're using Cloud9 as your IDE.  You are not limited to doing 
+                    For the remaining steps, it will be assumed that you're using AWS Cloud9 as your IDE.  You are not limited to doing 
                     this in Cloud9 but the instructions will not match if you use another editor.
                 </p>
                 <h3>Task 4.1: Deploying a Lambda function without dependencies</h3>
                 <p>
-                    A lot of the python lambda functions your create will not need any additional dependencies. As you saw in the 
+                    Many python Lambda functions that you create will not need any additional dependencies. As you saw in the 
                     workshop, the only dependencies that you needed to install was boto3. That package is already included in the 
-                    runtime for Python when you invoke a lambda function you just have to import it like any other built-in package.
+                    python runtime when you invoke a Lambda function, you just have to import it like any other built-in package.
                 </p>
                 <ol>
                     <li>
-                        In the AWS Cloud9 console, create a new folder in the environment window name 
-                        <code class="language-block">my-math-function</code>. You can also run the following code in the terminal window.
+                        In the AWS Cloud9 console, create a new folder in the environment window named 
+                        <code class="language-block">my-math-function</code>. You can also run the following code in the terminal window to do this.
                     <pre>
                         <code class="language-bash">
-mkdir my-math-function
+mkdir ~/environment/my-math-function
                         </code></pre>                        
                     </li>
                     <li>
@@ -60,7 +60,7 @@ mkdir my-math-function
                             <code class="language-python">
 import argparse
 
-parser = argparse.ArgumentParser(description="Performs an arithmetic operation on two numbers.")
+parser = argparse.ArgumentParser(description="Performs an arithmetic operation on two integers.")
 
 parser.add_argument(
 '--operand1',
@@ -81,43 +81,41 @@ required=False
 parser.add_argument(
 '--operation',
 type=str,
-help="add, subtract, multiply, divide, or modulus. The operation to perform on the numbers.",
+help="add, subtract, multiply, divide, or modulus. The operation to perform on the integers.",
 required=False
 )
 
 args = parser.parse_args()
 
 def main(**kwargs):
-operand1 = kwargs["operand1"]
-operand2 = kwargs["operand2"]
-operation = kwargs["operation"]
+    operand1 = kwargs["operand1"]
+    operand2 = kwargs["operand2"]
+    operation = kwargs["operation"]
 
-if operation == 'add':
-    return operand1 + operand2
-elif operation == 'subtract':
-    return operand1 - operand2
-elif operation == 'multiply':
-    return operand1 * operand2
-elif operation == 'divide':
-    return operand1 / operand2
-elif operation == 'modulus':
-    return operand1 % operand2
-else:
-    return 'unsupported operation'
+    if operation == 'add':
+        return operand1 + operand2
+    elif operation == 'subtract':
+        return operand1 - operand2
+    elif operation == 'multiply':
+        return operand1 * operand2
+    elif operation == 'divide':
+        return operand1 / operand2
+    elif operation == 'modulus':
+        return operand1 % operand2
+    else:
+        return 'unsupported operation'
 
 if __name__=="__main__":
-print(main(**vars(args)))
-                            </code>
-                        </pre>
+    print(main(**vars(args)))
+                            </code></pre>
                     </li>
                     <li>
                         Save the file and run it in the terminal with the following code:
                         <pre>
                             <code class="language-bash">
-cd my-math-function
+cd ~/environment/my-math-function
 python math-function.py --operand1 2 --operand2 3 --operation add
-                            </code>
-                        </pre>
+                            </code></pre>
                         <p>
                             <strong>Expected Output</strong>
                         </p><p>
@@ -141,90 +139,87 @@ python math-function.py --operand1 2 --operand2 3 --operation add
 import argparse
 
 def main(event, context):
-operand1 = event["operand1"]
-operand2 = event["operand2"]
-operation = event["operation"]
+    operand1 = event["operand1"]
+    operand2 = event["operand2"]
+    operation = event["operation"]
 
-if operation == 'add':
-    return operand1 + operand2
-elif operation == 'subtract':
-    return operand1 - operand2
-elif operation == 'multiply':
-    return operand1 * operand2
-elif operation == 'divide':
-    return operand1 / operand2
-elif operation == 'modulus':
-    return operand1 % operand2
-else:
-    return 'unsupported operation'
+    if operation == 'add':
+        return operand1 + operand2
+    elif operation == 'subtract':
+        return operand1 - operand2
+    elif operation == 'multiply':
+        return operand1 * operand2
+    elif operation == 'divide':
+        return operand1 / operand2
+    elif operation == 'modulus':
+        return operand1 % operand2
+    else:
+        return 'unsupported operation'
 
 if __name__=="__main__":
-parser = argparse.ArgumentParser(description="Performs an arithmetic operation on two numbers.")
+    parser = argparse.ArgumentParser(description="Performs an arithmetic operation on two integers.")
 
-parser.add_argument(
-    '--operand1',
-    dest="operand1",
-    type=int,
-    help="The first number to use in your function.",
-    required=False
-    )
+    parser.add_argument(
+        '--operand1',
+        dest="operand1",
+        type=int,
+        help="The first number to use in your function.",
+        required=False
+        )
 
-parser.add_argument(
-    '--operand2',
-    dest="operand2",
-    type=int,
-    help="The second number to use in your function.",
-    required=False
-    )
+    parser.add_argument(
+        '--operand2',
+        dest="operand2",
+        type=int,
+        help="The second number to use in your function.",
+        required=False
+        )
 
-parser.add_argument(
-    '--operation',
-    type=str,
-    help="add, subtract, multiply, divide, or modulus. The operation to perform on the numbers.",
-    required=False
-    )
+    parser.add_argument(
+        '--operation',
+        type=str,
+        help="add, subtract, multiply, divide, or modulus. The operation to perform on the integers.",
+        required=False
+        )
 
-args = parser.parse_args()
-args = vars(args)
-event = {
-    "operand1": args["operand1"],
-    "operand2": args["operand2"],
-    "operation": args["operation"]
-}
-print(main(event, None))
+    args = parser.parse_args()
+    args = vars(args)
+    event = {
+        "operand1": args["operand1"],
+        "operand2": args["operand2"],
+        "operation": args["operation"]
+    }
+    print(main(event, None))
                     </code></pre>
                     </li>
                     <li>Save and run the code in your terminal to confirm it still works
                         <pre>
                             <code class="language-bash">
 python math-function.py --operand1 2 --operand2 3 --operation add
-                            </code>
-                        </pre>
+                            </code></pre>
                         <p>
                             <strong>Expected Output</strong>
                         </p><p>
                             <span style="font-family:Courier">5</span>
                         </p>
-                        <i class="fa fa-info-circle" aria-hidden="true" style="color:blue"></i> **Important:** If you only care that it works in lambda, you can remove everything from <strong>if __name__=="__main__":</strong> to the end of the file.
+                        <i class="fa fa-info-circle" aria-hidden="true" style="color:blue"></i> <strong>Important:</strong> If you only care that it works in lambda, you can remove everything from <strong>if __name__=="__main__":</strong> to the end of the file.
                     </li>
                     <li>Add the math-function.py file to the root of a .zip file.
                         <pre>
                             <code class="language-bash">
 zip my-math-function.zip math-function.py
-                            </code>
-                        </pre>
+                            </code></pre>
                         <p>
                             <strong>Expected Output</strong>
                         </p><p>
                             <span style="font-family:Courier">adding: math-function.py (deflated 68%)</span>
                         </p>
                     </li>
-                    <li>Run the following command to create a variable with the IAM Role arn for your function. This role was created when you launched the Cloudformation that accompanies this workshop.
+                    <li>Run the following command to create a variable with the IAM Role arn for your function. This role was created when you launched the Cloudformation stack in Task 1 of this workshop.
                         <pre>
                             <code class="language-bash">
 roleArn=$(aws iam list-roles --output text --query 'Roles[?contains(RoleName, `LambdaExRole`) == `true`].Arn')
-                            </code>
-                        </pre>
+                            </code></pre>
                     </li>
                     <li>Use the following command in your terminal to create the lambda function.
                         <pre>
@@ -235,8 +230,7 @@ aws lambda create-function \
 --runtime python3.9 \
 --role $roleArn \
 --zip-file fileb://my-math-function.zip
-                            </code>
-                        </pre>
+                            </code></pre>
                     
                     <p>
                         <strong>Expected Output</strong>
@@ -304,11 +298,14 @@ aws lambda create-function \
                 </p>
                 <h3>Task 4.3: Deploying a Lambda function with dependencies</h3>
                 <p>
-                    Now that you know how to make your code run in AWS Lambda, how do you add dependencies? What do you put in your deployment package?  Create a new function that needs an external package.
+                    Now that you know how to make your code run in Lambda, how do you add dependencies? What do you put in your deployment package?
+                </p>
+                <p>
+                    Create a new function that needs an external package.
                 </p>
                 <ol>
                     <li>
-                        In the AWS Cloud9 console, create a new folder in the environment window name <code class="language-block">my-web-request-function</code>. You can also run the following code in the terminal window.
+                        In the AWS Cloud9 console, create a new folder in the environment window name <code class="language-block">my-web-request-function</code>. You can also run the following code in the terminal window to do this.
                     <pre>
                         <code class="language-bash">
 cd ~/environment/
@@ -325,12 +322,12 @@ mkdir my-web-request-function
 import requests
 
 def main(event, context):   
-response = requests.get("https://www.google.com/")
-print(response.text)
-return response.text
+    response = requests.get("https://www.google.com/")
+    print(response.text)
+    return response.text
 
 if __name__ == "__main__":   
-main('', '')
+    main('', '')
                         </code></pre>
                     </li>
                 </ol>
@@ -340,16 +337,16 @@ main('', '')
                 deployment package without and with a virtual environment. You can practice both methods but only one is required to create the package.
                 </p>
                 <a class="btn" role="button" data-toggle="collapse" href="#option1" aria-expanded="false" aria-controls="collapseExample">
-                    <strong><i class="fa fa-caret-right" aria-hidden="true"></i> Option 1: Without a Python virtual environment</strong>
+                    <strong><i class="fa fa-caret-right" aria-hidden="true"></i> Option 1: Without a python virtual environment</strong>
                 </a>
                 <div class="collapse" id="option1">
                     <ol>
                         <li>Install the requests library to a new package directory.
                             <pre>
                                 <code class="language-bash">
+cd ~/environment/
 pip install --target ./my-web-request-function requests
-                                </code>
-                            </pre>
+                                </code></pre>
                         </li>
                         <li>
                             Zip the contents of the <strong>my-web-request-function</strong> into a deployment package.
@@ -357,68 +354,60 @@ pip install --target ./my-web-request-function requests
                                 <code class="language-bash">
 cd my-web-request-function
 zip  -r my-deployment-package.zip .
-                                </code>
-                            </pre>
+                                </code></pre>
                         </li>
                     </ol>
                 </div>
                 <a class="btn" role="button" data-toggle="collapse" href="#option2" aria-expanded="false" aria-controls="collapseExample">
-                    <strong><i class="fa fa-caret-right" aria-hidden="true"></i> Option 2: With a Python virtual environment</strong>
+                    <strong><i class="fa fa-caret-right" aria-hidden="true"></i> Option 2: With a python virtual environment</strong>
                 </a>
                 <div class="collapse" id="option2">
                     <ol>
                         <li>Create a virtual environment in your function folder.
                             <pre>
                                 <code class="language-bash">
-cd my-web-request-function
+cd ~/environment/my-web-request-function
 python -m venv function-env
 source function-env/bin/activate
-                                </code>
-                            </pre>
+                                </code></pre>
                         </li>
                         <li>Install the requests library in your virtual environment.
                             <pre>
                                 <code class="language-bash">
 pip install requests
-                                </code>
-                            </pre></li>
+                                </code></pre></li>
                         <li>Deactivate the virtual environment.
                             <pre>
                                 <code class="language-bash">
 deactivate
-                                </code>
-                            </pre></li>
+                                </code></pre></li>
                         <li>Create a deployment package with the installed libraries at the root.
                             <pre>
                                 <code class="language-bash">
 cd function-env/lib/python3.7/site-packages
 zip -r ../../../../my-deployment-package.zip .
-                                </code>
-                            </pre>
+                                </code></pre>
                         <i class="fa fa-info-circle" style="color:blue;" aria-hidden="true"></i> <strong>Important:</strong> The version of python installed by default on 
                         Cloud9 is version 3.7.  The requests package for 3.7 works for 3.9 but other packages may have compatibility issues. If there is a 
-                        package that isn't compatible with Python 3.9 you can choose a different runtime version for your Lambda function.
+                        package that isn't compatible with python 3.9 you can choose a different runtime version for your Lambda function.
                         </li>
                         <li>Add function code files to the root of your deployment package.
                             <pre>
                                 <code class="language-bash">
 cd ~/environment/my-web-request-function
 zip -g my-deployment-package.zip web-request-function.py
-                                </code>
-                            </pre>
+                                </code></pre>
                         </li>
                     </ol>
                 </div>
                 <h3>Task 4.4: Deploy the Lambda function to AWS</h3>
                 <ol>
                     <li>
-                        Run the following command to create a variable with the IAM Role arn for your function. This role was created when you 
-                        launched the Cloudformation that accompanies this workshop.
+                        Run the following command to verify that the roleArn variable with the IAM Role arn for your function is still set.
                         <pre>
                             <code class="language-bash">
 roleArn=$(aws iam list-roles --output text --query 'Roles[?contains(RoleName, `LambdaExRole`) == `true`].Arn')
-                            </code>
-                        </pre>
+                            </code></pre>
                     </li>
                     <li>Use the following command in your terminal to create the lambda function.
                         <pre>
@@ -429,8 +418,7 @@ aws lambda create-function \
 --runtime python3.9 \
 --role $roleArn \
 --zip-file fileb://my-deployment-package.zip
-                            </code>
-                        </pre>
+                            </code></pre>
                         <p>
                             <strong>Expected Output</strong>
                         </p><p>
@@ -473,7 +461,7 @@ aws lambda create-function \
                     </li>
                 </ol>
                 <p>
-                    The Expected output will show a lot of information. The entire web page returned is written to the log and returned from the function. Update the code and Lambda function to only return and log the status code to just confirm a successful response.
+                    The Expected output will show a lot of information. The entire web page is returned and written to the log output from the function. Update the code and Lambda function to only return and log the status code to confirm a successful response.
                 </p>
                 <ol>
                     <li>Open the <strong>web-request-function.py</strong> file and update your function with the following code.
@@ -482,12 +470,12 @@ aws lambda create-function \
 import requests
 
 def main(event, context):   
-response = requests.get("https://google.com/")
-print('Status:', response.status_code)
-return 'Status: ' + str(response.status_code)
+    response = requests.get("https://google.com/")
+    print('Status:', response.status_code)
+    return 'Status: ' + str(response.status_code)
 
 if __name__ == "__main__":   
-main('', '')
+    main('', '')
                         </code></pre>
                     </li>
                     <li>
@@ -495,11 +483,10 @@ main('', '')
                         <pre>
                             <code class="language-bash">
 zip -g my-deployment-package.zip web-request-function.py
-                            </code>
-                        </pre>
+                            </code></pre>
                     </li>
-                    <li>On the AWS: Explorer, right click(context click) on the <strong>>web-request-function</strong> and choose <strong>Upload Lambda...</strong></li>
-                    <li>Choose <strong>ZIP Archive</strong>, expand <strong>my-web-request-function</strong>, select <strong>my-deployment-package.zip</strong>, choose <span class="grnsb">Open</span></li>
+                    <li>On the AWS: Explorer, right click(context click) on the <strong>web-request-function</strong> and choose <strong>Upload Lambda...</strong></li>
+                    <li>Choose <strong>ZIP Archive</strong>, expand <strong>my-web-request-function</strong>, select <strong>my-deployment-package.zip</strong>, and choose <span class="grnsb">Open</span></li>
                     <li>Choose <span class="brb">Yes</span></li>
                 </ol>
                 <i class="fa fa-sticky-note" style="color: orange;" aria-hidden="true"></i> <strong>Note:</strong> In the background, <strong>AWS: Explorer</strong> runs the <strong>aws lambda update-function-code</strong> method.
@@ -533,7 +520,7 @@ zip -g my-deployment-package.zip web-request-function.py
                     <ul class="list-unstyled">
                         <li><a href="index.html">Introduction</a></li>
                         <li><a href="task1.html">Task 1<br />Lab Preparation</a></li>
-                        <li><a href="task2.html">Task 2<br />Complete the Learn Python on AWS Workshop</a></li>
+                        <li><a href="task2.html">Task 2<br />Complete the learn python on AWS workshop</a></li>
                         <li><a href="task3.html">Task 3<br />Run your scripts on AWS without servers</a></li>
                         <li><a href="task4.html">Task 4<br />Deploy your Lambda function with a zip package</a></li>
                         <li><a href="task5.html">Task 5<br />Deploy your Lambda function with AWS SAM</a></li>
@@ -543,8 +530,8 @@ zip -g my-deployment-package.zip web-request-function.py
                 </nav>
             </div>
         </div>
-        <div class="row justify-content-end">
-            <div class="col-xs-6 offset-xs-6"><button class="osb btn" href="task5.html">Next Task</button></div>
+        <div class="row justify-content-end eof">
+            <div class="col-xs-6 offset-xs-6"><a class="bl" href="task5.html">Next Task</a></div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
